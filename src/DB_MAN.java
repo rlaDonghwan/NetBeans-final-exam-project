@@ -21,7 +21,7 @@ public class DB_MAN {
     Connection DB_con;
     Statement DB_stmt;
     ResultSet DB_rs;
-   
+    PreparedStatement pstmt;
     public void dbOpen() throws IOException {
         try {
             Class.forName(strDriver);
