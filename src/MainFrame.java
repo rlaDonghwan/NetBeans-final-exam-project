@@ -34,8 +34,6 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             String strData = null;
             DBM.dbOpen();
-            
-
             DBM.dbClose();
         } catch(Exception e){
             System.out.println("SQLException : " + e.getMessage());
@@ -765,53 +763,43 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    //데이터베이스에서 값을 가져와서 jTextArea1뿌려주는 메소드
     public final void getDBData(String strQuery) {
-    String strOutput = "|이름|\t|시작 시간|\t\t|종료 시간|\t\t|근무 시간|\n";
-    jTextArea1.setText(strOutput);
+        String strOutput = "|이름|\t|시작 시간|\t\t|종료 시간|\t\t|근무 시간|\n";
+        jTextArea1.setText(strOutput);
 
-    try {
-        // SQL 쿼리 작성
-        String query = "SELECT u.name, wh.start_time, wh.end_time, wh.work_duration " +
-                       "FROM WorkHour wh " +
-                       "JOIN User u ON wh.user_id = u.user_id " +
-                       "JOIN UserRole ur ON u.user_id = ur.user_id " +
-                       "WHERE ur.role = 'User' AND u.user_id = ?";
+        try {
+            // SQL 쿼리 작성
+            String query = "SELECT u.name, wh.start_time, wh.end_time, wh.work_duration " +
+                           "FROM WorkHour wh " +
+                           "JOIN User u ON wh.user_id = u.user_id " +
+                           "JOIN UserRole ur ON u.user_id = ur.user_id " +
+                           "WHERE ur.role = 'User' AND u.user_id = ?";
 
-        // PreparedStatement 사용
-        DBM.pstmt = DBM.DB_con.prepareStatement(query);
-        DBM.pstmt.setLong(1, loggedInUserId);
-        DBM.DB_rs = DBM.pstmt.executeQuery();
+            // PreparedStatement 사용
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.pstmt.setLong(1, loggedInUserId);
+            DBM.DB_rs = DBM.pstmt.executeQuery();
 
-        while (DBM.DB_rs.next()) {
-            strOutput = "";
-            strOutput += DBM.DB_rs.getString("name") + "\t";
-            strOutput += DBM.DB_rs.getString("start_time") + "\t";
-            strOutput += DBM.DB_rs.getString("end_time") + "\t     ";
-            strOutput += DBM.DB_rs.getString("work_duration") + "\n";
-            jTextArea1.append(strOutput);
+            while (DBM.DB_rs.next()) {
+                strOutput = "";
+                strOutput += DBM.DB_rs.getString("name") + "\t";
+                strOutput += DBM.DB_rs.getString("start_time") + "\t";
+                strOutput += DBM.DB_rs.getString("end_time") + "\t     ";
+                strOutput += DBM.DB_rs.getString("work_duration") + "\n";
+                jTextArea1.append(strOutput);
+            }
+
+            DBM.DB_rs.close();
+        } catch (Exception e) {
+            // 데이터베이스 작업 중 에러 발생 시
+            System.out.println("SQLException : " + e.getMessage());
         }
-
-        DBM.DB_rs.close();
-    } catch (Exception e) {
-        // 데이터베이스 작업 중 에러 발생 시
-        System.out.println("SQLException : " + e.getMessage());
     }
-}
-
-
-
-    
-  
+    //------------------------------------------------------------------------------
     
     
-    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-        jFrame1.setLocation(300, 300);
-        jFrame1.pack();
-        jFrame1.setVisible(true);
-        
-    }//GEN-LAST:event_registerBtnActionPerformed
-
+    //로그인을 성공하면 성공했다고 라벨에 사용자에 이름을 보여주는 메소드 로그인 로그아웃 메소드에서 사용됨
     private void updateWelcomeLabel(Long userId) {
         String userName = getUserNameById(userId);
 
@@ -824,8 +812,9 @@ public class MainFrame extends javax.swing.JFrame {
             welcomeLabel2.setText("로그아웃 되었습니다.");
         }
     }
-
-
+    //------------------------------------------------------------------------------  
+    
+    //userId값으로 사용자에 이름을 찾아오는 메소드 라벨을 업데이트 할때 사용됨
     private String getUserNameById(Long userId) {
         String userName = "";
 
@@ -848,7 +837,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         return userName;
     }
+    //------------------------------------------------------------------------------    
     
+    //회원가입 할 때 사용되고 전화번호 값으로 userId값을 찾을 때 사용됨
     private Long getUserIdByPhoneNumber(String phoneNumber) {
         try {
             String query = "SELECT user_id FROM User WHERE phone_number = ?";
@@ -866,8 +857,129 @@ public class MainFrame extends javax.swing.JFrame {
 
         return null; // 사용자를 찾지 못한 경우 null 반환
     }
+    //------------------------------------------------------------------------------    
+    
+    
+     // Authentication 테이블에서 비밀번호 가져오는 메서드
+    private String getStoredAdminPassword() {
+       String storedPassword = "";
 
+       try {
+           DBM.dbOpen();
+           String query = "SELECT password FROM Authentication";
+           DBM.DB_rs = DBM.DB_stmt.executeQuery(query);
+
+           if (DBM.DB_rs.next()) {
+               storedPassword = DBM.DB_rs.getString("password");
+           }
+
+           DBM.dbClose();
+       } catch (Exception e) {
+           // 데이터베이스 작업 중 에러 발생 시
+           System.out.println("SQLException: " + e.getMessage());
+       }
+
+       // 가져온 비밀번호를 해싱
+       return hashPassword(storedPassword);
+    }
+    //------------------------------------------------------------------------------    
    
+    
+    // UserRole 테이블에 권한 추가하는 쿼리문을 가진 메소드
+    private void addRoleToUserRoleTable(Long userId, String role) {
+        try {
+            String query = "INSERT INTO UserRole (user_id, role) VALUES (?, ?)";
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.pstmt.setLong(1, userId);
+            DBM.pstmt.setString(2, role);
+            DBM.pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }
+    //------------------------------------------------------------------------------    
+    
+    
+    //출근 시간을 가져와서 퇴근버튼에 뿌려주는 메소드
+    private LocalDateTime getStartTime(Long userId) {
+        LocalDateTime startTime = null;
+
+        try {
+            // SQL 쿼리 작성
+            String query = "SELECT start_time FROM WorkHour WHERE user_id = ? AND end_time IS NULL";
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.pstmt.setLong(1, userId);
+
+            // 쿼리 실행
+            DBM.DB_rs = DBM.pstmt.executeQuery();
+
+            if (DBM.DB_rs.next()) {
+                // 출근 기록이 있는 경우 출근 시간을 가져옴
+                String startTimeString = DBM.DB_rs.getString("start_time");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                startTime = LocalDateTime.parse(startTimeString, formatter);
+            }
+
+        } catch (Exception e) {
+            System.out.println("SQLException : " + e.getMessage());
+        }
+
+        return startTime;
+    }
+    //------------------------------------------------------------------------------    
+    
+    //전화번호에 정보를 가져와서 회원가입을 할때 중복이 되는지 안되는지 확인할때 쓰임
+    private boolean isPhoneNumberExists(String phoneNumber) {
+        try {
+            // 적절한 데이터베이스 쿼리를 사용하여 전화번호가 이미 데이터베이스에 있는지 확인
+            // 만약 있다면 true를 반환하고, 없다면 false를 반환
+            // 예시: "SELECT COUNT(*) FROM User WHERE phone_number = '전화번호'";
+            DBM.dbOpen();
+            String query = "SELECT COUNT(*) FROM User WHERE phone_number = '" + phoneNumber + "'";
+            DBM.DB_rs = DBM.DB_stmt.executeQuery(query);
+            DBM.DB_rs.next();
+            int count = DBM.DB_rs.getInt(1);
+            DBM.dbClose();
+
+            return count > 0; // 전화번호가 이미 존재하면 true 반환
+        } catch (Exception e) {
+            System.out.println("SQLException : " + e.getMessage());
+            return false; // 에러 발생 시 일단 false 반환
+        }
+    }
+    //------------------------------------------------------------------------------    
+    
+    //패스워드를 해싱하는 메소드 회원가입 로그인 어드민인증 과정에서 해싱해줌
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+
+            // 바이트 배열을 16진수 문자열로 변환
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //------------------------------------------------------------------
+    
+    
+    //회원가입 버튼을 누르면 jFrame1(회원가입을 하는 프레임)을 띄워줌
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+        jFrame1.setLocation(300, 300);
+        jFrame1.pack();
+        jFrame1.setVisible(true);
+        
+    }//GEN-LAST:event_registerBtnActionPerformed
+   
+    //회원가입 버튼 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
       String nameValue = name.getText();
       String phoneNumberValue = phoneNumber.getText();
@@ -931,25 +1043,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
  
     }//GEN-LAST:event_registerActionPerformed
-    
-    // UserRole 테이블에 권한 추가
-    private void addRoleToUserRoleTable(Long userId, String role) {
-        try {
-            String query = "INSERT INTO UserRole (user_id, role) VALUES (?, ?)";
-            DBM.pstmt = DBM.DB_con.prepareStatement(query);
-            DBM.pstmt.setLong(1, userId);
-            DBM.pstmt.setString(2, role);
-            DBM.pstmt.executeUpdate();
-
-        } catch (Exception e) {
-            System.out.println("SQLException : " + e.getMessage());
-        }
-    }
-
-    
-
-    
-    
+    //로그인 버튼
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String phoneNumberValue = id.getText();
         String passwordValue = new String(Pwd.getPassword());
@@ -958,7 +1052,10 @@ public class MainFrame extends javax.swing.JFrame {
         String hashedPassword = hashPassword(passwordValue);
 
         // SQL 쿼리 작성
-        strSQL = "SELECT * FROM User WHERE phone_number = '" + phoneNumberValue + "' AND password = '" + hashedPassword + "'";
+        strSQL = "SELECT u.user_id, u.name, ur.role " +
+                 "FROM User u " +
+                 "JOIN UserRole ur ON u.user_id = ur.user_id " +
+                 "WHERE u.phone_number = '" + phoneNumberValue + "' AND u.password = '" + hashedPassword + "'";
 
         try {
             DBM.dbOpen();
@@ -967,6 +1064,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (DBM.DB_rs.next()) {
                 // 로그인 성공
                 Long userId = DBM.DB_rs.getLong("user_id");
+                String userRole = DBM.DB_rs.getString("role");
 
                 // 클래스 멤버 변수에 저장
                 loggedInUserId = userId;
@@ -975,15 +1073,22 @@ public class MainFrame extends javax.swing.JFrame {
                 updateWelcomeLabel(loggedInUserId);
 
                 // 여기서 성공한 후의 동작 추가
-                JOptionPane.showMessageDialog(this, "로그인 성공!");
-                getDBData(strSQL);
-                id.setText(null);
-                Pwd.setText(null);
-                jFrame2.setLocation(300, 300);
-                jFrame2.pack();
-                jFrame2.setVisible(true);
-                
-                // 현재 프레임 닫지 않음
+                if ("USER".equals(userRole)) {
+                    // User일 경우 jFrame2를 띄움
+                    getDBData(strSQL);
+                    id.setText(null);
+                    Pwd.setText(null);
+                    jFrame2.setLocation(300, 300);
+                    jFrame2.pack();
+                    jFrame2.setVisible(true);
+                } else if ("ADMIN".equals(userRole)) {
+                    // ADMIN일 경우 jFrame3를 띄움
+                    id.setText(null);
+                    Pwd.setText(null);
+                    jFrame3.setLocation(300, 300);
+                    jFrame3.pack();
+                    jFrame3.setVisible(true);
+                }
             } else {
                 // 로그인 실패
                 JOptionPane.showMessageDialog(this, "로그인 실패. 전화번호 또는 비밀번호를 확인하세요.");
@@ -995,7 +1100,9 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "로그인 실패. 다시 시도하세요.");
         }
     }//GEN-LAST:event_loginBtnActionPerformed
+    
 
+    //중복 확인 메서드
     private void duplicateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicateBtnActionPerformed
         String phoneNumberValue = phoneNumber.getText();
 
@@ -1008,7 +1115,9 @@ public class MainFrame extends javax.swing.JFrame {
             register.setEnabled(true); // 사용 가능한 전화번호이므로 등록 버튼 활성화
         }
     }//GEN-LAST:event_duplicateBtnActionPerformed
+    
 
+    //로그아웃 버튼
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // 세션 정보 초기화
         loggedInUserId = null;
@@ -1018,13 +1127,15 @@ public class MainFrame extends javax.swing.JFrame {
         // 로그아웃 완료 얼럿 창 띄우기
         JOptionPane.showMessageDialog(this, "로그아웃 완료!");
     }//GEN-LAST:event_logoutBtnActionPerformed
-
+    
+    //어드빈 인증 버튼
     private void adminAuthBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAuthBtnActionPerformed
             jDialog1.setLocationRelativeTo(this);
             jDialog1.pack();
             jDialog1.setVisible(true);
     }//GEN-LAST:event_adminAuthBtnActionPerformed
-
+    
+    //관리자 인증 키 다이얼로그 화면에 있는 인증 버튼
     private void authActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authActionPerformed
          // jPasswordField1에서 입력된 비밀번호 가져오기
         char[] passwordChars = jPasswordField1.getPassword();
@@ -1049,8 +1160,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_authActionPerformed
 
-        
-   
+    
+    //출근 시간 버튼
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
         if (loggedInUserId != null) {
         try {
@@ -1097,6 +1208,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_startBtnActionPerformed
 
+    
+    //퇴근 시간 버튼
     private void endBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endBtnActionPerformed
     if (loggedInUserId != null) {
     try {
@@ -1161,115 +1274,14 @@ public class MainFrame extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(this, "로그인 후에 퇴근 기록이 가능합니다.");
 }
     }//GEN-LAST:event_endBtnActionPerformed
-    
-    private boolean hasWorkEntryForToday(Long userId) throws Exception {
-        // Check if there is an existing entry for the current date
-        String checkQuery = "SELECT * FROM WorkHour WHERE user_id = ? AND DATE(start_time) = CURDATE()";
-        DBM.pstmt = DBM.DB_con.prepareStatement(checkQuery);
-        DBM.pstmt.setLong(1, userId);
-        DBM.DB_rs = DBM.pstmt.executeQuery();
-        boolean hasEntry = DBM.DB_rs.next();
-        DBM.DB_rs.close();
-        return hasEntry;
-    }
 
     
     
     
-    private LocalDateTime getStartTime(Long userId) {
-        LocalDateTime startTime = null;
-
-        try {
-            // SQL 쿼리 작성
-            String query = "SELECT start_time FROM WorkHour WHERE user_id = ? AND end_time IS NULL";
-            DBM.pstmt = DBM.DB_con.prepareStatement(query);
-            DBM.pstmt.setLong(1, userId);
-
-            // 쿼리 실행
-            DBM.DB_rs = DBM.pstmt.executeQuery();
-
-            if (DBM.DB_rs.next()) {
-                // 출근 기록이 있는 경우 출근 시간을 가져옴
-                String startTimeString = DBM.DB_rs.getString("start_time");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                startTime = LocalDateTime.parse(startTimeString, formatter);
-            }
-
-        } catch (Exception e) {
-            System.out.println("SQLException : " + e.getMessage());
-        }
-
-        return startTime;
-    }
-
     
     
-    // Authentication 테이블에서 비밀번호 가져오는 메서드
-    private String getStoredAdminPassword() {
-       String storedPassword = "";
-
-       try {
-           DBM.dbOpen();
-           String query = "SELECT password FROM Authentication";
-           DBM.DB_rs = DBM.DB_stmt.executeQuery(query);
-
-           if (DBM.DB_rs.next()) {
-               storedPassword = DBM.DB_rs.getString("password");
-           }
-
-           DBM.dbClose();
-       } catch (Exception e) {
-           // 데이터베이스 작업 중 에러 발생 시
-           System.out.println("SQLException: " + e.getMessage());
-       }
-
-       // 가져온 비밀번호를 해싱
-       return hashPassword(storedPassword);
-   }
-
-
     
-    private boolean isPhoneNumberExists(String phoneNumber) {
-        try {
-            // 적절한 데이터베이스 쿼리를 사용하여 전화번호가 이미 데이터베이스에 있는지 확인
-            // 만약 있다면 true를 반환하고, 없다면 false를 반환
-            // 예시: "SELECT COUNT(*) FROM User WHERE phone_number = '전화번호'";
-            DBM.dbOpen();
-            String query = "SELECT COUNT(*) FROM User WHERE phone_number = '" + phoneNumber + "'";
-            DBM.DB_rs = DBM.DB_stmt.executeQuery(query);
-            DBM.DB_rs.next();
-            int count = DBM.DB_rs.getInt(1);
-            DBM.dbClose();
-
-            return count > 0; // 전화번호가 이미 존재하면 true 반환
-        } catch (Exception e) {
-            System.out.println("SQLException : " + e.getMessage());
-            return false; // 에러 발생 시 일단 false 반환
-        }
-    }
-
-    
-        // 패스워드를 해싱하는 메서드
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-
-            // 바이트 배열을 16진수 문자열로 변환
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
- 
-    
-    
+    //-------------------------------------------------------------------------------------------------------------------
     /**
      * @param args the command line arguments
      */
