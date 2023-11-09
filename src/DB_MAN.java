@@ -13,10 +13,10 @@ import java.io.*;
 public class DB_MAN {
 
     String strDriver = "com.mysql.cj.jdbc.Driver";
-    String strURL = "jdbc:mysql://localhost:3306/java_project?zeroDateTimeBehavior=CONVERT_TO_NULL";
+    String strURL = "jdbc:mysql://localhost:3306/java_project?characterEncoding=UTF-8&&serverTimezone=UTC";
 
     String user = "root";
-    String password = "password";
+    String password = "202044059!";
 
     Connection DB_con;
     Statement DB_stmt;

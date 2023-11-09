@@ -1,4 +1,7 @@
 
+import captcha.TextToGraphics;
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.security.MessageDigest;
@@ -12,7 +15,9 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nl.captcha.Captcha;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -28,11 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Long loggedInUserId; // 세션처리
     
     
-    Captcha captcha = new Captcha.Builder(200, 50)
-                .addText() // 기본적으로 글자를 추가합니다.
-                .addBackground() // 기본 배경을 추가합니다.
-                .addNoise() // 기본적으로 잡음을 추가합니다.
-                .build();
+    String currentCaptcha;
     
     
     /**
@@ -48,7 +49,20 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
         
+        lblImg.setText("");
+        reset();
     }
+    
+    public void reset(){
+        try {
+            currentCaptcha = TextToGraphics.generateImage();
+            Image img = ImageIO.read(new File("./src/captcha/Text.png"));
+            lblImg.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     @SuppressWarnings("unchecked")  
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,7 +134,6 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jTextField3 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
@@ -131,6 +144,11 @@ public class MainFrame extends javax.swing.JFrame {
         registerBtn = new javax.swing.JButton();
         Pwd = new javax.swing.JPasswordField();
         welcomeLabel1 = new javax.swing.JLabel();
+        txtCapcha = new javax.swing.JTextField();
+        refreshBtn = new javax.swing.JButton();
+        lblImg = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        authBtn = new javax.swing.JButton();
 
         jLabel4.setText("이름");
 
@@ -190,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(duplicateLabel)
                         .addGap(47, 47, 47)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(duplicateBtn)
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerFrameLayout.createSequentialGroup()
@@ -210,16 +228,16 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addGap(42, 42, 42)
                                 .addGroup(registerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(registerFrameLayout.createSequentialGroup()
-                                        .addComponent(userRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(ADMINRadioButton)
-                                        .addGap(2, 2, 2))
                                     .addComponent(pwd, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(pwdC, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(registerFrameLayout.createSequentialGroup()
-                                        .addComponent(birth, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerFrameLayout.createSequentialGroup()
+                                        .addGroup(registerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(birth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(registerFrameLayout.createSequentialGroup()
+                                                .addComponent(userRadioButton)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(ADMINRadioButton)))
+                                        .addGap(2, 2, 2)))))
                         .addGap(18, 18, 18)
                         .addGroup(registerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -667,7 +685,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, handOverFrameLayout.createSequentialGroup()
                 .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(handOverFrameLayout.createSequentialGroup()
-                        .addGap(0, 6, Short.MAX_VALUE)
+                        .addGap(0, 10, Short.MAX_VALUE)
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -677,17 +695,14 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(handOverFrameLayout.createSequentialGroup()
                                 .addComponent(handOverLabel)
-                                .addGap(137, 137, 137)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                 .addGap(16, 16, 16))
         );
         handOverFrameLayout.setVerticalGroup(
             handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(handOverFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handOverLabel))
+                .addComponent(handOverLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
@@ -731,6 +746,28 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        refreshBtn.setText("새로고침");
+        refreshBtn.setAutoscrolls(true);
+        refreshBtn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnActionPerformed(evt);
+            }
+        });
+
+        lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImg.setText("jLabel21");
+        lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel21.setText("자동 등록 방지를 위해 이미지에 나타난 문자를 입력하세요.");
+
+        authBtn.setText("인증");
+        authBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -747,15 +784,24 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(registerBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(welcomeLabel1)
-                            .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(Pwd))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(authBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(refreshBtn))
+                            .addComponent(txtCapcha)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(39, 39, 39)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(welcomeLabel1)
+                                    .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(Pwd)))
+                            .addComponent(lblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -772,7 +818,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(refreshBtn)
+                    .addComponent(authBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCapcha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginBtn)
                     .addComponent(registerBtn))
@@ -1064,6 +1120,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     //로그인 버튼
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+
         String phoneNumberValue = id.getText();
         String passwordValue = new String(Pwd.getPassword());
 
@@ -1301,11 +1358,23 @@ public class MainFrame extends javax.swing.JFrame {
         handOverFrame.pack();
         handOverFrame.setVisible(true);
     }//GEN-LAST:event_handOverBtnActionPerformed
-      private String generateCaptcha() {
-        Random random = new Random();
-        int captchaNumber = 1000 + random.nextInt(9000);
-        return Integer.toString(captchaNumber);
-    }
+        
+    //캡챠 새로고침 버튼
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_refreshBtnActionPerformed
+    //캡챠 인증버튼
+    private void authBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authBtnActionPerformed
+        if(currentCaptcha.equals(txtCapcha.getText())){
+            loginBtn.setEnabled(true);
+            JOptionPane.showMessageDialog(this, "인증성공!");
+        }else{
+            loginBtn.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "인증실패");
+        }
+    }//GEN-LAST:event_authBtnActionPerformed
+      
     
     
     
@@ -1360,6 +1429,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea adminTextArea;
     private javax.swing.JButton adminUpdateBtn;
     private javax.swing.JButton auth;
+    private javax.swing.JButton authBtn;
     private com.toedter.calendar.JDateChooser birth;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1371,7 +1441,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JFrame handOverFrame;
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton9;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1385,6 +1454,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1408,6 +1478,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblImg;
     private javax.swing.JButton loginBtn;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JComboBox<String> monthComboBox;
@@ -1418,10 +1489,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField phoneNumber;
     private javax.swing.JPasswordField pwd;
     private javax.swing.JPasswordField pwdC;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton register;
     private javax.swing.JButton registerBtn;
     private javax.swing.JFrame registerFrame;
     private javax.swing.JButton startBtn;
+    private javax.swing.JTextField txtCapcha;
     private javax.swing.JFrame userInfo;
     private javax.swing.JRadioButton userRadioButton;
     private javax.swing.JTextArea userTextArea;
