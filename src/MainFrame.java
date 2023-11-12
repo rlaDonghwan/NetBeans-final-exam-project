@@ -35,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     String currentCaptcha;
     
-    
+    //------------------------------------------------------------------------------
     /**
      * Creates new form MainFrame
      */
@@ -44,6 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             String strData = null;
             DBM.dbOpen();
+           
             DBM.dbClose();
         } catch(Exception e){
             System.out.println("SQLException : " + e.getMessage());
@@ -52,16 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         lblImg.setText("");
         reset();
     }
-    
-    public void reset(){
-        try {
-            currentCaptcha = TextToGraphics.generateImage();
-            Image img = ImageIO.read(new File("./src/captcha/Text.png"));
-            lblImg.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    //------------------------------------------------------------------------------
     
     @SuppressWarnings("unchecked")  
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -96,12 +88,12 @@ public class MainFrame extends javax.swing.JFrame {
         payField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         monthComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         userTextArea = new javax.swing.JTextArea();
-        jLabel16 = new javax.swing.JLabel();
-        monthPay = new javax.swing.JTextField();
+        totalPay = new javax.swing.JLabel();
+        totalWorkTime = new javax.swing.JLabel();
+        taxInclude = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         handOverBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
@@ -124,6 +116,7 @@ public class MainFrame extends javax.swing.JFrame {
         adminDeleteBtn = new javax.swing.JButton();
         adminUpdateBtn = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
+        adminLogoutBtn = new javax.swing.JButton();
         buttonGroup3 = new javax.swing.ButtonGroup();
         adminAuthDialog = new javax.swing.JDialog();
         jLabel10 = new javax.swing.JLabel();
@@ -372,15 +365,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "근무일 및 월급", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jLabel14.setText("근무일");
-
         monthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" }));
+        monthComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthComboBoxActionPerformed(evt);
+            }
+        });
 
         userTextArea.setColumns(20);
         userTextArea.setRows(5);
         jScrollPane1.setViewportView(userTextArea);
 
-        jLabel16.setText("월급");
+        totalPay.setText("1");
+
+        totalWorkTime.setText("1");
+        totalWorkTime.setToolTipText("");
+
+        taxInclude.setText("1");
+        taxInclude.setToolTipText("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -390,34 +392,33 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(24, 24, 24)
-                        .addComponent(monthPay, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(totalWorkTime, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(totalPay, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(taxInclude)
+                                .addGap(0, 250, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(monthPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(totalPay)
+                    .addComponent(totalWorkTime)
+                    .addComponent(taxInclude))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "기타", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -462,10 +463,9 @@ public class MainFrame extends javax.swing.JFrame {
         userInfoLayout.setHorizontalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInfoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(userInfoLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,8 +473,11 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(userInfoLayout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(userInfoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         userInfoLayout.setVerticalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,9 +489,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(8, 8, 8))
         );
 
         jLabel11.setText("직원관리");
@@ -595,23 +598,27 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel19.setText("환영합니다!");
 
+        adminLogoutBtn.setText("로그아웃");
+
         javax.swing.GroupLayout adminFrameLayout = new javax.swing.GroupLayout(adminFrame.getContentPane());
         adminFrame.getContentPane().setLayout(adminFrameLayout);
         adminFrameLayout.setHorizontalGroup(
             adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adminFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(adminFrameLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel19))
-                    .addGroup(adminFrameLayout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(adminLogoutBtn)
+                    .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(adminFrameLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel19))
+                        .addGroup(adminFrameLayout.createSequentialGroup()
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         adminFrameLayout.setVerticalGroup(
@@ -628,7 +635,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(adminLogoutBtn)
+                .addGap(20, 20, 20))
         );
 
         jLabel10.setText("관리자 인증 비밀번호");
@@ -732,7 +741,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("비밀번호");
 
         loginBtn.setText("로그인");
-        loginBtn.setEnabled(false);
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -843,6 +851,9 @@ public class MainFrame extends javax.swing.JFrame {
         userTextArea.setText(strOutput);
 
         try {
+            // 데이터베이스 연결 열기
+            DBM.dbOpen();
+
             // SQL 쿼리 작성
             String query = "SELECT u.name, wh.start_time, wh.end_time, wh.work_duration " +
                            "FROM WorkHour wh " +
@@ -855,6 +866,8 @@ public class MainFrame extends javax.swing.JFrame {
             DBM.pstmt.setLong(1, loggedInUserId);
             DBM.DB_rs = DBM.pstmt.executeQuery();
 
+            long totalWorkHours = 0; // 변수 추가
+
             while (DBM.DB_rs.next()) {
                 strOutput = "";
                 strOutput += DBM.DB_rs.getString("name") + "\t";
@@ -862,14 +875,43 @@ public class MainFrame extends javax.swing.JFrame {
                 strOutput += DBM.DB_rs.getString("end_time") + "\t     ";
                 strOutput += DBM.DB_rs.getString("work_duration") + "\n";
                 userTextArea.append(strOutput);
+
+                // 총 일한 시간 누적
+                totalWorkHours += DBM.DB_rs.getLong("work_duration");
             }
+
+            // 총 일한 시간 출력
+            totalWorkTime.setText("총 일한 시간: " + totalWorkHours + " 시간\n");
+            String pay = payField.getText();
+            long payLong = Long.parseLong(pay);
+            totalPay.setText("총액: "+ String.valueOf(payLong * totalWorkHours)+ "원\n");
+            //세후 금액 
+            long grossPay = payLong * totalWorkHours; // 총 급여
+            double taxRate = 0.033; // 세율
+            long taxAmount = (long) (grossPay * taxRate); // 세금
+            long netPay = grossPay - taxAmount; // 세후금액
+            taxInclude.setText("3.3% 세후금액: " + netPay + "원\n");
+
 
             DBM.DB_rs.close();
         } catch (Exception e) {
             // 데이터베이스 작업 중 에러 발생 시
             System.out.println("SQLException : " + e.getMessage());
+        } finally {
+            try {
+                // ResultSet을 닫아주는 메소드 호출
+                if (DBM.DB_rs != null) {
+                    DBM.DB_rs.close();
+                }
+
+                // 데이터베이스 연결 닫기
+                DBM.dbClose();
+            } catch (Exception ex) {
+                System.out.println("Exception during closing resources: " + ex.getMessage());
+            }
         }
     }
+
     //------------------------------------------------------------------------------
     
     
@@ -886,7 +928,7 @@ public class MainFrame extends javax.swing.JFrame {
             welcomeLabel2.setText("로그아웃 되었습니다.");
         }
     }
-    //------------------------------------------------------------------------------  
+    //------------------------------------------------------------------------------
     
     //userId값으로 사용자에 이름을 찾아오는 메소드 라벨을 업데이트 할때 사용됨
     private String getUserNameById(Long userId) {
@@ -911,7 +953,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return userName;
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------
     
     //회원가입 할 때 사용되고 전화번호 값으로 userId값을 찾을 때 사용됨
     private Long getUserIdByPhoneNumber(String phoneNumber) {
@@ -931,7 +973,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return null; // 사용자를 찾지 못한 경우 null 반환
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------
     
     
      // Authentication 테이블에서 비밀번호 가져오는 메서드
@@ -956,7 +998,7 @@ public class MainFrame extends javax.swing.JFrame {
        // 가져온 비밀번호를 해싱
        return hashPassword(storedPassword);
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------ 
    
     
     // UserRole 테이블에 권한 추가하는 쿼리문을 가진 메소드
@@ -972,7 +1014,7 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------
     
     
     //출근 시간을 가져와서 퇴근버튼에 뿌려주는 메소드
@@ -1001,7 +1043,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return startTime;
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------
     
     //전화번호에 정보를 가져와서 회원가입을 할때 중복이 되는지 안되는지 확인할때 쓰임
     private boolean isPhoneNumberExists(String phoneNumber) {
@@ -1042,7 +1084,7 @@ public class MainFrame extends javax.swing.JFrame {
             return null;
         }
     }
-    //------------------------------------------------------------------
+    //------------------------------------------------------------------------------
     
     
     //회원가입 버튼을 누르면 jFrame1(회원가입을 하는 프레임)을 띄워줌
@@ -1052,7 +1094,8 @@ public class MainFrame extends javax.swing.JFrame {
         registerFrame.setVisible(true);
         
     }//GEN-LAST:event_registerBtnActionPerformed
-   
+    //------------------------------------------------------------------------------
+    
     //회원가입 버튼 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
         String nameValue = name.getText();
@@ -1116,7 +1159,7 @@ public class MainFrame extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(this, "회원가입 실패. 다시 시도하세요.");
            }
     }//GEN-LAST:event_registerActionPerformed
-    
+    //------------------------------------------------------------------------------
 
     //로그인 버튼
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
@@ -1150,13 +1193,12 @@ public class MainFrame extends javax.swing.JFrame {
 
                 // 여기서 성공한 후의 동작 추가
                 if ("USER".equals(userRole)) {
-                    // User일 경우 jFrame2를 띄움
-                    getDBData(strSQL);
                     id.setText(null);
                     Pwd.setText(null);
-                    userInfo.setLocation(300, 300);
+                    userInfo.setLocation(400, 400);
                     userInfo.pack();
                     userInfo.setVisible(true);
+                    getDBData(strSQL);                                                                      
                 } else if ("ADMIN".equals(userRole)) {
                     // ADMIN일 경우 jFrame3를 띄움
                     id.setText(null);
@@ -1176,7 +1218,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "로그인 실패. 다시 시도하세요.");
         }
     }//GEN-LAST:event_loginBtnActionPerformed
-    
+    //------------------------------------------------------------------------------
 
     //중복 확인 메서드
     private void duplicateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicateBtnActionPerformed
@@ -1191,7 +1233,7 @@ public class MainFrame extends javax.swing.JFrame {
             register.setEnabled(true); // 사용 가능한 전화번호이므로 등록 버튼 활성화
         }
     }//GEN-LAST:event_duplicateBtnActionPerformed
-    
+    //------------------------------------------------------------------------------
 
     //로그아웃 버튼
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -1203,6 +1245,7 @@ public class MainFrame extends javax.swing.JFrame {
         // 로그아웃 완료 얼럿 창 띄우기
         JOptionPane.showMessageDialog(this, "로그아웃 완료!");
     }//GEN-LAST:event_logoutBtnActionPerformed
+    //------------------------------------------------------------------------------
     
     //어드빈 인증 버튼
     private void adminAuthBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAuthBtnActionPerformed
@@ -1235,7 +1278,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "인증 실패. 비밀번호를 확인하세요.");
         }
     }//GEN-LAST:event_authActionPerformed
-
+    //------------------------------------------------------------------------------
     
     //출근 시간 버튼
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
@@ -1262,14 +1305,14 @@ public class MainFrame extends javax.swing.JFrame {
                     DBM.pstmt.executeUpdate();
 
                     // 출근 완료 알림 창 띄우기
-                    JOptionPane.showMessageDialog(this, "출근 완료!");
+                    JOptionPane.showMessageDialog(userInfo, "출근 완료!");
                     startBtn.setEnabled(false);
                     endBtn.setEnabled(true);
 
                 } catch (Exception e) {
                     // 데이터베이스 작업 중 에러 발생 시
                     System.out.println("SQLException : " + e.getMessage());
-                    JOptionPane.showMessageDialog(this, "출근 시간 기록 실패. 다시 시도하세요.");
+                    JOptionPane.showMessageDialog(userInfo, "출근 시간 기록 실패. 다시 시도하세요.");
                 } finally {
                     // 예외 발생 여부와 상관없이 항상 데이터베이스 연결 닫기
                     getDBData(strSQL);
@@ -1280,10 +1323,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } else {
             // 사용자가 로그인하지 않은 경우
-            JOptionPane.showMessageDialog(this, "로그인 후에 출근 기록이 가능합니다.");
+            JOptionPane.showMessageDialog(userInfo, "로그인 후에 출근 기록이 가능합니다.");
         }
     }//GEN-LAST:event_startBtnActionPerformed
-
+    //------------------------------------------------------------------------------
     
     //퇴근 시간 버튼
     private void endBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endBtnActionPerformed
@@ -1306,32 +1349,37 @@ public class MainFrame extends javax.swing.JFrame {
                     // 근무 시간을 시간 단위로 변환
                     long workDurationInHours = workDurationInMinutes / 60;
 
-                    // SQL 쿼리 작성
-                    strSQL = "UPDATE WorkHour SET end_time = ?, work_duration = IFNULL(work_duration, 0) + ? WHERE user_id = ? AND end_time IS NULL";
+                long totalWorkDurationForUser = getTotalWorkDurationForUser(loggedInUserId);
+                long updatedTotalWorkDuration = totalWorkDurationForUser + workDurationInHours;
 
-                    try {
-                        // PreparedStatement를 사용하여 쿼리를 실행
-                        DBM.pstmt = DBM.DB_con.prepareStatement(strSQL);
-                        DBM.pstmt.setString(1, formattedEndTime); // 현재 시간을 쿼리에 넣음
-                        DBM.pstmt.setLong(2, workDurationInHours); // 계산된 근무 시간(시간 단위)을 쿼리에 넣음
-                        DBM.pstmt.setLong(3, loggedInUserId);    // 세션에서 가져온 현재 로그인한 사용자의 ID를 사용
+                strSQL = "UPDATE WorkHour SET end_time = ?, work_duration = IFNULL(work_duration, 0) + ?, total_work_duration = IFNULL(total_work_duration, 0) + ? WHERE user_id = ? AND end_time IS NULL";
 
-                        // 쿼리 실행
-                        DBM.pstmt.executeUpdate();
+                try {
+                    // PreparedStatement를 사용하여 쿼리를 실행
+                    DBM.pstmt = DBM.DB_con.prepareStatement(strSQL);
+                    DBM.pstmt.setString(1, formattedEndTime); // 현재 시간을 쿼리에 넣음
+                    DBM.pstmt.setLong(2, workDurationInHours); // 계산된 근무 시간(분 단위)을 쿼리에 넣음
+                    DBM.pstmt.setLong(3, updatedTotalWorkDuration); // total_work_duration에 더할 근무 시간(시간 단위)을 쿼리에 넣음
+                    DBM.pstmt.setLong(4, loggedInUserId);
+                                        System.out.println("쿼리 실행 전 total_work_duration: " + workDurationInHours);
 
-                        // 퇴근 완료 알림 창 띄우기
-                        JOptionPane.showMessageDialog(this, "퇴근 완료!");
-                        startBtn.setEnabled(true);
-                        endBtn.setEnabled(false);
+                    // 쿼리 실행
+                    DBM.pstmt.executeUpdate();
 
-                    } catch (Exception e) {
-                        // 데이터베이스 작업 중 에러 발생 시
-                        System.out.println("SQLException : " + e.getMessage());
-                        JOptionPane.showMessageDialog(this, "퇴근 시간 기록 실패. 다시 시도하세요.");
-                    }
+                    // 퇴근 완료 알림 창 띄우기
+                    JOptionPane.showMessageDialog(userInfo, "퇴근 완료!");
+                    startBtn.setEnabled(true);
+                    endBtn.setEnabled(false);
+
+                } catch (Exception e) {
+                    // 데이터베이스 작업 중 에러 발생 시
+                    System.out.println("SQLException : " + e.getMessage());
+                    JOptionPane.showMessageDialog(userInfo, "퇴근 시간 기록 실패. 다시 시도하세요.");
+                }
+
                 } else {
                     // 출근 기록이 없는 경우
-                    JOptionPane.showMessageDialog(this, "출근 기록이 없습니다. 출근 후에 퇴근이 가능합니다.");
+                    JOptionPane.showMessageDialog(userInfo, "출근 기록이 없습니다. 출근 후에 퇴근이 가능합니다.");
                 }
             } catch (IOException e) {
                 System.out.println("IOException : " + e.getMessage());
@@ -1347,9 +1395,52 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } else {
             // 사용자가 로그인하지 않은 경우
-            JOptionPane.showMessageDialog(this, "로그인 후에 퇴근 기록이 가능합니다.");
+            JOptionPane.showMessageDialog(userInfo, "로그인 후에 퇴근 기록이 가능합니다.");
         }
     }//GEN-LAST:event_endBtnActionPerformed
+    //------------------------------------------------------------------------------
+        
+    //누적 출근 시간 구하는 메서드
+    public long getTotalWorkDurationForUser(long userId) {
+        long totalWorkDuration = 0;
+
+        try {
+            // 데이터베이스 연결 열기
+            DBM.dbOpen();
+
+            // SQL 쿼리 작성
+            String query = "SELECT SUM(IFNULL(work_duration, 0)) AS total_work_duration " +
+                           "FROM WorkHour " +
+                           "WHERE user_id = ?";
+
+            // PreparedStatement 사용
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.pstmt.setLong(1, userId);
+            DBM.DB_rs = DBM.pstmt.executeQuery();
+
+            if (DBM.DB_rs.next()) {
+                totalWorkDuration = DBM.DB_rs.getLong("total_work_duration");
+            }
+
+        } catch (Exception e) {
+            // 데이터베이스 작업 중 에러 발생 시
+            System.out.println("getSQLException : " + e.getMessage());
+        } finally {
+            try {
+                // ResultSet을 닫아주는 메소드 호출
+                if (DBM.DB_rs != null) {
+                    DBM.DB_rs.close();
+                }
+
+                // 데이터베이스 연결 닫기
+            } catch (Exception ex) {
+                System.out.println("Exception during closing resources: " + ex.getMessage());
+            }
+        }
+        System.out.println("쿼리 실행 전 total_work_duration: " + totalWorkDuration);
+        return totalWorkDuration;
+    }
+    //------------------------------------------------------------------------------
 
     
     //인수인계 버튼
@@ -1358,12 +1449,27 @@ public class MainFrame extends javax.swing.JFrame {
         handOverFrame.pack();
         handOverFrame.setVisible(true);
     }//GEN-LAST:event_handOverBtnActionPerformed
-        
+    //------------------------------------------------------------------------------    
+    
+    //캡챠 리셋하는 메소드
+    public void reset(){
+        try {
+            currentCaptcha = TextToGraphics.generateImage();
+            Image img = ImageIO.read(new File("./src/captcha/Text.png"));
+            lblImg.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    //------------------------------------------------------------------------------
+    
     //캡챠 새로고침 버튼
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
         reset();
     }//GEN-LAST:event_refreshBtnActionPerformed
+    //------------------------------------------------------------------------------
+
     //캡챠 인증버튼
     private void authBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authBtnActionPerformed
         if(currentCaptcha.equals(txtCapcha.getText())){
@@ -1374,8 +1480,89 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "인증실패");
         }
     }//GEN-LAST:event_authBtnActionPerformed
-      
+    //------------------------------------------------------------------------------
     
+    //콤보박스 날짜를 클릭하면 해당 달에 값이 출력 됌
+    private void monthComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthComboBoxActionPerformed
+        String selectedMonth = monthComboBox.getSelectedItem().toString();
+        String monthWithoutSuffix = selectedMonth.replace("월", "");
+        int monthAsInt = Integer.parseInt(monthWithoutSuffix);
+        
+        String strOutput = "|이름|\t|시작 시간|\t\t|종료 시간|\t\t|근무 시간|\n";
+        userTextArea.setText(strOutput);
+
+        try {
+            // 데이터베이스 연결 열기
+            DBM.dbOpen();
+
+            String query = "SELECT u.name, wh.start_time, wh.end_time, wh.work_duration " +
+                          "FROM WorkHour wh " +
+                          "JOIN User u ON wh.user_id = u.user_id " +
+                          "JOIN UserRole ur ON u.user_id = ur.user_id " +
+                          "WHERE ur.role = 'User' AND u.user_id = ? " +
+                          "AND MONTH(wh.start_time) = ? AND YEAR(wh.start_time) = YEAR(NOW())";
+
+           DBM.pstmt = DBM.DB_con.prepareStatement(query);
+           DBM.pstmt.setLong(1, loggedInUserId);
+           DBM.pstmt.setInt(2, monthAsInt);
+
+            DBM.DB_rs = DBM.pstmt.executeQuery();
+            long totalWorkHours = 0; // 변수 추가
+
+            System.out.println("실행할 쿼리: " + query);
+            System.out.println("ResultSet의 상태: " + DBM.DB_rs);
+
+            while (DBM.DB_rs.next()) {
+                strOutput = "";
+                strOutput += DBM.DB_rs.getString("name") + "\t";
+                strOutput += DBM.DB_rs.getString("start_time") + "\t";
+                strOutput += DBM.DB_rs.getString("end_time") + "\t     ";
+                strOutput += DBM.DB_rs.getString("work_duration") + "\n";
+                userTextArea.append(strOutput);
+                userTextArea.append(strOutput);
+
+                // 총 일한 시간 누적
+                totalWorkHours += DBM.DB_rs.getLong("work_duration");
+            }   
+            // 총 일한 시간 출력
+            totalWorkTime.setText("총 일한 시간: " + totalWorkHours + " 시간\n");
+            String pay = payField.getText();
+            long payLong = Long.parseLong(pay);
+            totalPay.setText("총액: "+ String.valueOf(payLong * totalWorkHours)+ "원\n");
+            //세후 금액 
+            long grossPay = payLong * totalWorkHours; // 총 급여
+            double taxRate = 0.033; // 세율
+            long taxAmount = (long) (grossPay * taxRate); // 세금
+            long netPay = grossPay - taxAmount; // 세후금액
+            taxInclude.setText("3.3% 세후금액: " + netPay + "원\n");
+
+            
+            DBM.DB_rs.close();
+        } catch (Exception e) {
+            // 데이터베이스 작업 중 에러 발생 시
+            System.out.println("SQLException : " + e.getMessage());
+        } finally {
+            try {
+                // ResultSet을 닫아주는 메소드 호출
+                if (DBM.DB_rs != null) {
+                    DBM.DB_rs.close();
+                }
+
+                // 데이터베이스 연결 닫기
+                DBM.dbClose();
+            } catch (Exception ex) {
+                System.out.println("Exception during closing resources: " + ex.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_monthComboBoxActionPerformed
+    //------------------------------------------------------------------------------
+
+
+
+
+
+
     
     
     
@@ -1425,6 +1612,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JDialog adminAuthDialog;
     private javax.swing.JButton adminDeleteBtn;
     private javax.swing.JFrame adminFrame;
+    private javax.swing.JButton adminLogoutBtn;
     private javax.swing.JTextField adminPayField;
     private javax.swing.JTextArea adminTextArea;
     private javax.swing.JButton adminUpdateBtn;
@@ -1446,9 +1634,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1482,7 +1668,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton loginBtn;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JComboBox<String> monthComboBox;
-    private javax.swing.JTextField monthPay;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField payField;
@@ -1494,6 +1679,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton registerBtn;
     private javax.swing.JFrame registerFrame;
     private javax.swing.JButton startBtn;
+    private javax.swing.JLabel taxInclude;
+    private javax.swing.JLabel totalPay;
+    private javax.swing.JLabel totalWorkTime;
     private javax.swing.JTextField txtCapcha;
     private javax.swing.JFrame userInfo;
     private javax.swing.JRadioButton userRadioButton;

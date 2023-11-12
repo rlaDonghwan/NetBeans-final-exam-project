@@ -16,7 +16,7 @@ public class DB_MAN {
     String strURL = "jdbc:mysql://localhost:3306/java_project?characterEncoding=UTF-8&&serverTimezone=UTC";
 
     String user = "root";
-    String password = "202044059!";
+    String password = "password";
 
     Connection DB_con;
     Statement DB_stmt;
