@@ -1,6 +1,7 @@
 
 import captcha.TextToGraphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -29,6 +30,7 @@ import javax.swing.ImageIcon;
  */
 public class MainFrame extends javax.swing.JFrame {
     DB_MAN DBM = new DB_MAN();
+    String strASQL = "SELECT user_id, name, phone_number, birth_date, pay FROM User";
     String strSQL = null;
     private Long loggedInUserId; // 세션처리
     
@@ -44,7 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             String strData = null;
             DBM.dbOpen();
-           
+            getUserData(strASQL);
             DBM.dbClose();
         } catch(Exception e){
             System.out.println("SQLException : " + e.getMessage());
@@ -100,23 +102,6 @@ public class MainFrame extends javax.swing.JFrame {
         welcomeLabel2 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        adminFrame = new javax.swing.JFrame();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        adminTextArea = new javax.swing.JTextArea();
-        jPanel7 = new javax.swing.JPanel();
-        jTextField11 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        adminPayField = new javax.swing.JTextField();
-        adminDeleteBtn = new javax.swing.JButton();
-        adminUpdateBtn = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        adminLogoutBtn = new javax.swing.JButton();
         buttonGroup3 = new javax.swing.ButtonGroup();
         adminAuthDialog = new javax.swing.JDialog();
         jLabel10 = new javax.swing.JLabel();
@@ -125,10 +110,37 @@ public class MainFrame extends javax.swing.JFrame {
         handOverFrame = new javax.swing.JFrame();
         javax.swing.JLabel handOverLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
+        handOverTextArea = new javax.swing.JTextArea();
+        handOverInputField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        adminFrame = new javax.swing.JFrame();
+        jPanel11 = new javax.swing.JPanel();
+        adminLogoutBtn = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        txtAdmin = new javax.swing.JTextField();
+        btnSelect = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        adminPayField = new javax.swing.JTextField();
+        adminDeleteBtn = new javax.swing.JButton();
+        adminUpdateBtn = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        txtNum = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        adminTextArea = new javax.swing.JTextArea();
+        jPanel13 = new javax.swing.JPanel();
+        adminHandOverBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -323,7 +335,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(endBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "근무자 정보", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -418,7 +430,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(totalPay)
                     .addComponent(totalWorkTime)
                     .addComponent(taxInclude))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "기타", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -458,6 +470,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        welcomeLabel2.setText("123123");
+
         javax.swing.GroupLayout userInfoLayout = new javax.swing.GroupLayout(userInfo.getContentPane());
         userInfo.getContentPane().setLayout(userInfoLayout);
         userInfoLayout.setHorizontalGroup(
@@ -477,7 +491,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(userInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         userInfoLayout.setVerticalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,153 +505,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
-        );
-
-        jLabel11.setText("직원관리");
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        adminTextArea.setColumns(20);
-        adminTextArea.setRows(5);
-        jScrollPane2.setViewportView(adminTextArea);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-        );
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ID로 검색하시오.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        jButton9.setText("검색");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9))
-                .addGap(20, 20, 20))
-        );
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel17.setText("ID");
-
-        jLabel18.setText("시급");
-
-        jLabel22.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel22.setText("jLabel22");
-
-        adminPayField.setText("jTextField12");
-
-        adminDeleteBtn.setText("삭제");
-
-        adminUpdateBtn.setText("수정");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(adminUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(adminDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(adminPayField)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel22))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(adminPayField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adminUpdateBtn)
-                    .addComponent(adminDeleteBtn))
-                .addGap(17, 17, 17))
-        );
-
-        jLabel19.setText("환영합니다!");
-
-        adminLogoutBtn.setText("로그아웃");
-
-        javax.swing.GroupLayout adminFrameLayout = new javax.swing.GroupLayout(adminFrame.getContentPane());
-        adminFrame.getContentPane().setLayout(adminFrameLayout);
-        adminFrameLayout.setHorizontalGroup(
-            adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(adminFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(adminLogoutBtn)
-                    .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(adminFrameLayout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel19))
-                        .addGroup(adminFrameLayout.createSequentialGroup()
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
-                            .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        adminFrameLayout.setVerticalGroup(
-            adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(adminFrameLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel19))
-                .addGap(18, 18, 18)
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(adminFrameLayout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(adminLogoutBtn)
-                .addGap(20, 20, 20))
+                .addGap(14, 14, 14))
         );
 
         jLabel10.setText("관리자 인증 비밀번호");
@@ -679,57 +547,298 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        handOverLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         handOverLabel.setText("인수인계");
+        handOverLabel.setToolTipText("");
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        handOverTextArea.setColumns(20);
+        handOverTextArea.setRows(5);
+        jScrollPane3.setViewportView(handOverTextArea);
+
+        handOverInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                handOverInputFieldKeyTyped(evt);
+            }
+        });
 
         jLabel20.setText("입력: ");
+
+        jLabel14.setText("이름 검색");
+
+        jLabel16.setText("날짜 검색");
 
         javax.swing.GroupLayout handOverFrameLayout = new javax.swing.GroupLayout(handOverFrame.getContentPane());
         handOverFrame.getContentPane().setLayout(handOverFrameLayout);
         handOverFrameLayout.setHorizontalGroup(
             handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, handOverFrameLayout.createSequentialGroup()
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(handOverFrameLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(handOverFrameLayout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(handOverFrameLayout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(handOverFrameLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
                             .addGroup(handOverFrameLayout.createSequentialGroup()
                                 .addComponent(handOverLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
-                .addGap(16, 16, 16))
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel14)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addComponent(jTextField1))))
+                .addGap(16, 28, Short.MAX_VALUE))
         );
         handOverFrameLayout.setVerticalGroup(
             handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(handOverFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(handOverLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(handOverLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        adminLogoutBtn.setText("로그아웃");
+        adminLogoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminLogoutBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adminLogoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adminLogoutBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel23.setText("환영합니다!");
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ID로 검색하시오.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        btnSelect.setText("검색");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelect))
+                .addGap(20, 20, 20))
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel24.setText("ID");
+
+        jLabel25.setText("시급");
+
+        adminDeleteBtn.setText("삭제");
+        adminDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        adminUpdateBtn.setText("수정");
+        adminUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminUpdateBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setText("이름");
+
+        jLabel27.setText("전화번호");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel26))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(adminPayField)
+                    .addComponent(txtNum)
+                    .addComponent(txtName)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(adminUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(adminDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(adminPayField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(adminUpdateBtn)
+                            .addComponent(adminDeleteBtn))))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jLabel28.setText("직원관리");
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        adminTextArea.setColumns(20);
+        adminTextArea.setRows(5);
+        jScrollPane4.setViewportView(adminTextArea);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        adminHandOverBtn.setText("인수인계");
+        adminHandOverBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminHandOverBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adminHandOverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adminHandOverBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout adminFrameLayout = new javax.swing.GroupLayout(adminFrame.getContentPane());
+        adminFrame.getContentPane().setLayout(adminFrameLayout);
+        adminFrameLayout.setHorizontalGroup(
+            adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(adminFrameLayout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23))
+                    .addGroup(adminFrameLayout.createSequentialGroup()
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(adminFrameLayout.createSequentialGroup()
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        adminFrameLayout.setVerticalGroup(
+            adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminFrameLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel23))
+                .addGap(18, 18, 18)
+                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(adminFrameLayout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -845,6 +954,33 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    //어드민창에서 데이터베이스의 user테이블 정보를 불러오는 메소드
+    public final void getUserData(String strQuery){
+        String strOutput = "ID\t이름\t전화번호\t   생년월일\t   시급\n";
+        adminTextArea.setText(strOutput);
+        
+        try{
+            DBM.DB_rs = DBM.DB_stmt.executeQuery(strQuery);
+            while(DBM.DB_rs.next()){
+                strOutput = "";
+                strOutput += DBM.DB_rs.getString("user_id") + "\t";
+                strOutput += DBM.DB_rs.getString("name") + "\t";
+                strOutput += DBM.DB_rs.getString("phone_number") + "\t   ";
+                strOutput += DBM.DB_rs.getString("birth_date") + "\t   ";
+                strOutput += DBM.DB_rs.getString("pay") + "\n";
+                adminTextArea.append(strOutput);
+            }
+            DBM.DB_rs.close();
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }
+    
+
+
+
+
     //데이터베이스에서 값을 가져와서 jTextArea1뿌려주는 메소드
     public final void getDBData(String strQuery) {
         String strOutput = "|이름|\t|시작 시간|\t\t|종료 시간|\t\t|근무 시간|\n";
@@ -1195,15 +1331,15 @@ public class MainFrame extends javax.swing.JFrame {
                 if ("USER".equals(userRole)) {
                     id.setText(null);
                     Pwd.setText(null);
-                    userInfo.setLocation(400, 400);
+                    userInfo.setLocation(400,0 );
                     userInfo.pack();
                     userInfo.setVisible(true);
                     getDBData(strSQL);                                                                      
                 } else if ("ADMIN".equals(userRole)) {
-                    // ADMIN일 경우 jFrame3를 띄움
+                    // ADMIN일 경우 adminFrame 띄움
                     id.setText(null);
                     Pwd.setText(null);
-                    adminFrame.setLocation(300, 300);
+                    adminFrame.setLocation(400, 300);
                     adminFrame.pack();
                     adminFrame.setVisible(true);
                 }
@@ -1445,9 +1581,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     //인수인계 버튼
     private void handOverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handOverBtnActionPerformed
-        handOverFrame.setLocation(300, 300);
+        handOverFrame.setLocation(500, 100);
         handOverFrame.pack();
         handOverFrame.setVisible(true);
+        updateHandOverTextArea();
     }//GEN-LAST:event_handOverBtnActionPerformed
     //------------------------------------------------------------------------------    
     
@@ -1557,6 +1694,181 @@ public class MainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_monthComboBoxActionPerformed
     //------------------------------------------------------------------------------
+    
+    private void handOverInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handOverInputFieldKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                if (loggedInUserId != null) {
+                    try {
+                        // 데이터베이스 연결 열기
+                        DBM.dbOpen();
+
+                        // 현재 시간을 가져와서 데이터베이스에 저장할 준비
+                        LocalDateTime currentTime = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        String formattedTime = currentTime.format(formatter);
+
+                        // 입력된 내용 가져오기
+                        String note = handOverInputField.getText();
+
+                        // SQL 쿼리 작성
+                        String query = "INSERT INTO HandOver (user_id, input_time, handover_notes) VALUES (?, ?, ?)";
+
+                        // PreparedStatement 사용
+                        DBM.pstmt = DBM.DB_con.prepareStatement(query);
+                        DBM.pstmt.setLong(1, loggedInUserId);
+                        DBM.pstmt.setString(2, formattedTime);
+                        DBM.pstmt.setString(3, note);
+                        DBM.pstmt.executeUpdate();
+
+                        // 저장된 값을 화면에 출력
+                        updateHandOverTextArea();
+
+                        // 입력 필드 초기화
+                        handOverInputField.setText("");
+
+                    } catch (Exception e) {
+                        // 데이터베이스 작업 중 에러 발생 시
+                        System.out.println("SQLException : " + e.getMessage());
+                    } finally {
+                        try {
+                            // 데이터베이스 연결 닫기
+                            DBM.dbClose();
+                        } catch (Exception ex) {
+                            System.out.println("Exception during closing resources: " + ex.getMessage());
+                        }
+                    }
+                } else {
+                    // 사용자가 로그인하지 않은 경우
+                    JOptionPane.showMessageDialog(this, "로그인 후에 핸드오버 기록이 가능합니다.");
+                }
+            }
+    }//GEN-LAST:event_handOverInputFieldKeyTyped
+    //------------------------------------------------------------------------------
+    
+    private void updateHandOverTextArea() {
+        try {
+            // 데이터베이스 연결 열기
+            DBM.dbOpen();
+
+            // SQL 쿼리 작성
+            String query = "SELECT u.name, ho.input_time, ho.handover_notes " +
+                           "FROM HandOver ho " +
+                           "JOIN User u ON ho.user_id = u.user_id " +
+                           "ORDER BY ho.input_time";  // 최신 핸드오버가 먼저 나오도록 정렬
+
+            // PreparedStatement 사용
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.DB_rs = DBM.pstmt.executeQuery();
+
+            // 결과를 TextArea에 출력
+            handOverTextArea.setText("");
+            while (DBM.DB_rs.next()) {
+                String output = "| " + DBM.DB_rs.getString("name") + " | " +
+                                DBM.DB_rs.getString("input_time") + " | " +
+                                DBM.DB_rs.getString("handover_notes") + " |\n";
+                handOverTextArea.append(output);
+            }
+
+        } catch (Exception e) {
+            // 데이터베이스 작업 중 에러 발생 시
+            System.out.println("SQLException : " + e.getMessage());
+        } finally {
+            try {
+                // ResultSet을 닫아주는 메소드 호출
+                if (DBM.DB_rs != null) {
+                    DBM.DB_rs.close();
+                }
+
+                // 데이터베이스 연결 닫기
+                DBM.dbClose();
+            } catch (Exception ex) {
+                System.out.println("Exception during closing resources: " + ex.getMessage());
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    
+    private void adminLogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLogoutBtnActionPerformed
+
+    }//GEN-LAST:event_adminLogoutBtnActionPerformed
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        adminTextArea.setText(null);
+        String strQuery = "SELECT user_id, name, phone_number, birth_date, pay "
+        + "FROM User WHERE User.user_id = '"
+        + txtAdmin.getText() + "'";
+        String strOutput = "ID\t이름\t전화번호\t   생년월일\t   시급\n";
+
+        try{
+            DBM.dbOpen();
+            DBM.DB_rs = DBM.DB_stmt.executeQuery(strQuery);
+            while(DBM.DB_rs.next()){
+                strOutput += DBM.DB_rs.getString("user_id") + "\t";
+                strOutput += DBM.DB_rs.getString("name") + "\t";
+                strOutput += DBM.DB_rs.getString("phone_number") + "\t   ";
+                strOutput += DBM.DB_rs.getString("birth_date") + "\t   ";
+                strOutput += DBM.DB_rs.getString("pay") + "\n";
+                adminTextArea.append(strOutput);
+                txtID.setText(DBM.DB_rs.getString("user_id"));
+                txtName.setText(DBM.DB_rs.getString("name"));
+                txtNum.setText(DBM.DB_rs.getString("phone_number"));
+                adminPayField.setText(DBM.DB_rs.getString("pay"));
+            }
+
+            DBM.DB_rs.close();
+            DBM.dbClose();
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void adminDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteBtnActionPerformed
+        // TODO add your handling code here:
+        strSQL = "Delete FROM User ";
+        strSQL += "WHERE user_id = '" + txtID.getText() + "' ";
+        try{
+            DBM.dbOpen();
+            DBM.DB_stmt.executeUpdate(strSQL);
+            strSQL = "SELECT user_id, name, phone_number, birth_date, pay FROM USER";
+            getUserData(strSQL);
+            DBM.dbClose();
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }//GEN-LAST:event_adminDeleteBtnActionPerformed
+
+    private void adminUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUpdateBtnActionPerformed
+        // TODO add your handling code here:
+        strSQL = "Update User Set ";
+        strSQL += "user_id = '" + txtID.getText() + "', ";
+        strSQL += "name = '" + txtName.getText() + "', ";
+        strSQL += "phone_number = '" + txtNum.getText() + "', ";
+        strSQL += "pay = '" + adminPayField.getText() + "' ";
+        strSQL += "WHERE user_id = '" + txtID.getText() + "' ";
+
+        try{
+            DBM.dbOpen();
+            DBM.DB_stmt.executeUpdate(strSQL);
+            strSQL = "SELECT user_id, name, phone_number, birth_date, pay FROM User";
+            getUserData(strSQL);
+            DBM.dbClose();
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }//GEN-LAST:event_adminUpdateBtnActionPerformed
+
+    private void adminHandOverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminHandOverBtnActionPerformed
+        handOverFrame.setLocation(500, 100);
+        handOverFrame.pack();
+        handOverFrame.setVisible(true);
+        updateHandOverTextArea();
+    }//GEN-LAST:event_adminHandOverBtnActionPerformed
+    //------------------------------------------------------------------------------
+    
+
+
+
 
 
 
@@ -1612,6 +1924,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JDialog adminAuthDialog;
     private javax.swing.JButton adminDeleteBtn;
     private javax.swing.JFrame adminFrame;
+    private javax.swing.JButton adminHandOverBtn;
     private javax.swing.JButton adminLogoutBtn;
     private javax.swing.JTextField adminPayField;
     private javax.swing.JTextArea adminTextArea;
@@ -1619,6 +1932,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton auth;
     private javax.swing.JButton authBtn;
     private com.toedter.calendar.JDateChooser birth;
+    private javax.swing.JButton btnSelect;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1627,21 +1941,26 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton endBtn;
     private javax.swing.JButton handOverBtn;
     private javax.swing.JFrame handOverFrame;
+    private javax.swing.JTextField handOverInputField;
+    private javax.swing.JTextArea handOverTextArea;
     private javax.swing.JTextField id;
-    private javax.swing.JButton jButton9;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1649,21 +1968,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImg;
     private javax.swing.JButton loginBtn;
     private javax.swing.JButton logoutBtn;
@@ -1682,7 +2000,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel taxInclude;
     private javax.swing.JLabel totalPay;
     private javax.swing.JLabel totalWorkTime;
+    private javax.swing.JTextField txtAdmin;
     private javax.swing.JTextField txtCapcha;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNum;
     private javax.swing.JFrame userInfo;
     private javax.swing.JRadioButton userRadioButton;
     private javax.swing.JTextArea userTextArea;
