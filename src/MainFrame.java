@@ -13,7 +13,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -99,7 +98,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         handOverBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
-        welcomeLabel2 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
@@ -109,21 +107,20 @@ public class MainFrame extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         handOverFrame = new javax.swing.JFrame();
         javax.swing.JLabel handOverLabel = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        handOverTextArea = new javax.swing.JTextArea();
         handOverInputField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jTextField1 = new javax.swing.JTextField();
+        selectNameField = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        handOverTextArea = new javax.swing.JTextArea();
+        handOVerSelectAllBtn = new javax.swing.JButton();
         adminFrame = new javax.swing.JFrame();
         jPanel11 = new javax.swing.JPanel();
         adminLogoutBtn = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         txtAdmin = new javax.swing.JTextField();
         btnSelect = new javax.swing.JButton();
+        selectAllBtn = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -148,7 +145,6 @@ public class MainFrame extends javax.swing.JFrame {
         loginBtn = new javax.swing.JButton();
         registerBtn = new javax.swing.JButton();
         Pwd = new javax.swing.JPasswordField();
-        welcomeLabel1 = new javax.swing.JLabel();
         txtCapcha = new javax.swing.JTextField();
         refreshBtn = new javax.swing.JButton();
         lblImg = new javax.swing.JLabel();
@@ -213,7 +209,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(duplicateLabel)
                         .addGap(47, 47, 47)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(duplicateBtn)
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerFrameLayout.createSequentialGroup()
@@ -294,7 +290,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(adminAuthBtn))
                 .addGap(18, 18, 18)
                 .addComponent(register)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "출근등록", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -342,7 +338,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel13.setText("이름");
 
-        payField.setText("9620");
+        payField.setText("0");
 
         jLabel15.setText("시급");
 
@@ -430,7 +426,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(totalPay)
                     .addComponent(totalWorkTime)
                     .addComponent(taxInclude))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "기타", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -470,8 +466,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        welcomeLabel2.setText("123123");
-
         javax.swing.GroupLayout userInfoLayout = new javax.swing.GroupLayout(userInfo.getContentPane());
         userInfo.getContentPane().setLayout(userInfoLayout);
         userInfoLayout.setHorizontalGroup(
@@ -482,12 +476,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(welcomeLabel2)
-                            .addGroup(userInfoLayout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(userInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -496,9 +487,7 @@ public class MainFrame extends javax.swing.JFrame {
         userInfoLayout.setVerticalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInfoLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(welcomeLabel2)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -551,10 +540,6 @@ public class MainFrame extends javax.swing.JFrame {
         handOverLabel.setText("인수인계");
         handOverLabel.setToolTipText("");
 
-        handOverTextArea.setColumns(20);
-        handOverTextArea.setRows(5);
-        jScrollPane3.setViewportView(handOverTextArea);
-
         handOverInputField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 handOverInputFieldKeyTyped(evt);
@@ -563,9 +548,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel20.setText("입력: ");
 
-        jLabel14.setText("이름 검색");
+        selectNameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                selectNameFieldKeyTyped(evt);
+            }
+        });
 
-        jLabel16.setText("날짜 검색");
+        jLabel14.setText("유저 이름만 입력하세요");
+
+        handOverTextArea.setColumns(20);
+        handOverTextArea.setRows(5);
+        jScrollPane3.setViewportView(handOverTextArea);
+
+        handOVerSelectAllBtn.setText("전체보기");
+        handOVerSelectAllBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handOVerSelectAllBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout handOverFrameLayout = new javax.swing.GroupLayout(handOverFrame.getContentPane());
         handOverFrame.getContentPane().setLayout(handOverFrameLayout);
@@ -573,45 +573,42 @@ public class MainFrame extends javax.swing.JFrame {
             handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(handOverFrameLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(handOverFrameLayout.createSequentialGroup()
                             .addComponent(jLabel20)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(handOverFrameLayout.createSequentialGroup()
-                        .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16)
-                            .addGroup(handOverFrameLayout.createSequentialGroup()
-                                .addComponent(handOverLabel)
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel14)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(jTextField1))))
-                .addGap(16, 28, Short.MAX_VALUE))
+                            .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6))
+                        .addGroup(handOverFrameLayout.createSequentialGroup()
+                            .addComponent(handOverLabel)
+                            .addGap(160, 160, 160)
+                            .addComponent(handOVerSelectAllBtn))
+                        .addGroup(handOverFrameLayout.createSequentialGroup()
+                            .addComponent(jLabel14)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         handOverFrameLayout.setVerticalGroup(
             handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(handOverFrameLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(handOverLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(handOverLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(handOVerSelectAllBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
-                .addGap(43, 43, 43))
+                .addGap(28, 28, 28))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -629,8 +626,8 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(adminLogoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(adminLogoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,8 +636,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(adminLogoutBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel23.setText("환영합니다!");
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ID로 검색하시오.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -651,25 +646,37 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        selectAllBtn.setText("유저 전체 검색");
+        selectAllBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectAllBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(12, 12, 12)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAdmin)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(selectAllBtn)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(txtAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectAllBtn)
                     .addComponent(btnSelect))
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -717,7 +724,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(adminDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtID))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -803,30 +810,25 @@ public class MainFrame extends javax.swing.JFrame {
             adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adminFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(adminFrameLayout.createSequentialGroup()
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel23))
+                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28)
                     .addGroup(adminFrameLayout.createSequentialGroup()
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(adminFrameLayout.createSequentialGroup()
                                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         adminFrameLayout.setVerticalGroup(
             adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adminFrameLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel23))
+                .addComponent(jLabel28)
                 .addGap(18, 18, 18)
                 .addGroup(adminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminFrameLayout.createSequentialGroup()
@@ -873,7 +875,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImg.setText("jLabel21");
         lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel21.setText("자동 등록 방지를 위해 이미지에 나타난 문자를 입력하세요.");
@@ -913,21 +914,18 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(welcomeLabel1)
                                     .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                                     .addComponent(Pwd)))
                             .addComponent(lblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(welcomeLabel1)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -935,7 +933,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -976,9 +974,7 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }
-    
-
-
+    //------------------------------------------------------------------------------
 
 
     //데이터베이스에서 값을 가져와서 jTextArea1뿌려주는 메소드
@@ -1051,20 +1047,56 @@ public class MainFrame extends javax.swing.JFrame {
     //------------------------------------------------------------------------------
     
     
-    //로그인을 성공하면 성공했다고 라벨에 사용자에 이름을 보여주는 메소드 로그인 로그아웃 메소드에서 사용됨
+    //------------------------------------------------------------------------------
+    
+    public final int getPayByUserId(Long userId) {
+        int pay = 0;
+        String query = "SELECT pay FROM User WHERE user_id = ?";
+
+        try {
+            // 데이터베이스 연결 열기
+            DBM.dbOpen();
+
+            DBM.pstmt = DBM.DB_con.prepareStatement(query);
+            DBM.pstmt.setLong(1, userId);
+            DBM.DB_rs = DBM.pstmt.executeQuery();
+
+            if (DBM.DB_rs.next()) {
+                pay = DBM.DB_rs.getInt("pay");
+            }
+            DBM.DB_rs.close();
+        } catch (Exception e) {
+            System.out.println("SQLException : " + e.getMessage());
+        } finally {
+            try {
+                // ResultSet을 닫아주는 메소드 호출
+                if (DBM.DB_rs != null) {
+                    DBM.DB_rs.close();
+                }
+
+                // 데이터베이스 연결 닫기
+                DBM.dbClose();
+            } catch (Exception ex) {
+                System.out.println("Exception during closing resources: " + ex.getMessage());
+            }
+        }
+        System.out.println(pay);
+        return pay;
+    }
+//    //로그인을 성공하면 성공했다고 라벨에 사용자에 이름을 보여주는 메소드 로그인 로그아웃 메소드에서 사용됨
     private void updateWelcomeLabel(Long userId) {
         String userName = getUserNameById(userId);
 
         if (userName != null) {
-            welcomeLabel1.setText(userName + " 님, 환영합니다!");
-            welcomeLabel2.setText(userName + " 님, 환영합니다!");
+//            welcomeLabel1.setText(userName + " 님, 환영합니다!");
+//            welcomeLabel2.setText(userName + " 님, 환영합니다!");
             nameField.setText(userName);
         } else {
-            welcomeLabel1.setText("로그아웃 되었습니다.");
-            welcomeLabel2.setText("로그아웃 되었습니다.");
+//            welcomeLabel1.setText("로그아웃 되었습니다.");
+//            welcomeLabel2.setText("로그아웃 되었습니다.");
         }
     }
-    //------------------------------------------------------------------------------
+
     
     //userId값으로 사용자에 이름을 찾아오는 메소드 라벨을 업데이트 할때 사용됨
     private String getUserNameById(Long userId) {
@@ -1324,9 +1356,6 @@ public class MainFrame extends javax.swing.JFrame {
                 // 클래스 멤버 변수에 저장
                 loggedInUserId = userId;
 
-                // 세션 정보를 이용하여 환영 라벨 업데이트
-                updateWelcomeLabel(loggedInUserId);
-
                 // 여기서 성공한 후의 동작 추가
                 if ("USER".equals(userRole)) {
                     id.setText(null);
@@ -1334,6 +1363,11 @@ public class MainFrame extends javax.swing.JFrame {
                     userInfo.setLocation(400,0 );
                     userInfo.pack();
                     userInfo.setVisible(true);
+                    updateWelcomeLabel(loggedInUserId);
+                    int payInt = getPayByUserId(loggedInUserId);
+                    payField.setText(String.valueOf(payInt));
+
+                    
                     getDBData(strSQL);                                                                      
                 } else if ("ADMIN".equals(userRole)) {
                     // ADMIN일 경우 adminFrame 띄움
@@ -1375,7 +1409,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // 세션 정보 초기화
         loggedInUserId = null;
-        updateWelcomeLabel(loggedInUserId);
         userInfo.dispose();
 
         // 로그아웃 완료 얼럿 창 띄우기
@@ -1695,36 +1728,26 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_monthComboBoxActionPerformed
     //------------------------------------------------------------------------------
     
+    //인수인계 입력 필드 입력 메서드
     private void handOverInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handOverInputFieldKeyTyped
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-                if (loggedInUserId != null) {
-                    try {
-                        // 데이터베이스 연결 열기
-                        DBM.dbOpen();
+            if (loggedInUserId != null) {
+                try {
+                    DBM.dbOpen();
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedTime = currentTime.format(formatter);
+                    String note = handOverInputField.getText();
+                    String query = "INSERT INTO HandOver (user_id, input_time, handover_notes) VALUES (?, ?, ?)";
 
-                        // 현재 시간을 가져와서 데이터베이스에 저장할 준비
-                        LocalDateTime currentTime = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                        String formattedTime = currentTime.format(formatter);
+                    DBM.pstmt = DBM.DB_con.prepareStatement(query);
+                    DBM.pstmt.setLong(1, loggedInUserId);
+                    DBM.pstmt.setString(2, formattedTime);
+                    DBM.pstmt.setString(3, note);
+                    DBM.pstmt.executeUpdate();
 
-                        // 입력된 내용 가져오기
-                        String note = handOverInputField.getText();
-
-                        // SQL 쿼리 작성
-                        String query = "INSERT INTO HandOver (user_id, input_time, handover_notes) VALUES (?, ?, ?)";
-
-                        // PreparedStatement 사용
-                        DBM.pstmt = DBM.DB_con.prepareStatement(query);
-                        DBM.pstmt.setLong(1, loggedInUserId);
-                        DBM.pstmt.setString(2, formattedTime);
-                        DBM.pstmt.setString(3, note);
-                        DBM.pstmt.executeUpdate();
-
-                        // 저장된 값을 화면에 출력
-                        updateHandOverTextArea();
-
-                        // 입력 필드 초기화
-                        handOverInputField.setText("");
+                    updateHandOverTextArea();
+                    handOverInputField.setText("");
 
                     } catch (Exception e) {
                         // 데이터베이스 작업 중 에러 발생 시
@@ -1740,20 +1763,22 @@ public class MainFrame extends javax.swing.JFrame {
                 } else {
                     // 사용자가 로그인하지 않은 경우
                     JOptionPane.showMessageDialog(this, "로그인 후에 핸드오버 기록이 가능합니다.");
-                }
-            }
+                }          
+        }
     }//GEN-LAST:event_handOverInputFieldKeyTyped
     //------------------------------------------------------------------------------
     
+    //인수 인수인계 창 값 업데이하는 메서드
     private void updateHandOverTextArea() {
         try {
             // 데이터베이스 연결 열기
             DBM.dbOpen();
 
             // SQL 쿼리 작성
-            String query = "SELECT u.name, ho.input_time, ho.handover_notes " +
+            String query = "SELECT u.name, ur.role, ho.input_time, ho.handover_notes " +
                            "FROM HandOver ho " +
                            "JOIN User u ON ho.user_id = u.user_id " +
+                           "JOIN UserRole ur ON u.user_id = ur.user_id " +
                            "ORDER BY ho.input_time";  // 최신 핸드오버가 먼저 나오도록 정렬
 
             // PreparedStatement 사용
@@ -1763,10 +1788,23 @@ public class MainFrame extends javax.swing.JFrame {
             // 결과를 TextArea에 출력
             handOverTextArea.setText("");
             while (DBM.DB_rs.next()) {
-                String output = "| " + DBM.DB_rs.getString("name") + " | " +
-                                DBM.DB_rs.getString("input_time") + " | " +
-                                DBM.DB_rs.getString("handover_notes") + " |\n";
+                String name = DBM.DB_rs.getString("name");
+                String role = DBM.DB_rs.getString("role");
+                String inputTime = DBM.DB_rs.getString("input_time");
+                String handoverNotes = DBM.DB_rs.getString("handover_notes");
+                
+                // UserRole이 ADMIN이면 글씨 색을 빨간색으로 표시
+                if ("ADMIN".equals(role)) {
+                    String output = "***" + "사장" + " * " +inputTime + " * " + handoverNotes + " ***\n";
                 handOverTextArea.append(output);
+                }else{
+                    String output = "| " + name + " | " +inputTime + " | " + handoverNotes + " |\n";
+                    handOverTextArea.append(output);
+
+                }
+                
+                
+               
             }
 
         } catch (Exception e) {
@@ -1786,24 +1824,32 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
-
     //------------------------------------------------------------------------------
     
+    //어드민 로그아웃 버튼
     private void adminLogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLogoutBtnActionPerformed
+        // 세션 정보 초기화
+        loggedInUserId = null;
+        adminFrame.dispose();
 
+        // 로그아웃 완료 얼럿 창 띄우기
+        JOptionPane.showMessageDialog(this, "로그아웃 완료!");
     }//GEN-LAST:event_adminLogoutBtnActionPerformed
-
+    //------------------------------------------------------------------------------
+    
+    //어드빈 유저 검색 버튼
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        adminTextArea.setText(null);
+
         String strQuery = "SELECT user_id, name, phone_number, birth_date, pay "
-        + "FROM User WHERE User.user_id = '"
-        + txtAdmin.getText() + "'";
+            + "FROM User WHERE User.user_id = '"
+            + txtAdmin.getText() + "'";
         String strOutput = "ID\t이름\t전화번호\t   생년월일\t   시급\n";
 
-        try{
+        try {
             DBM.dbOpen();
             DBM.DB_rs = DBM.DB_stmt.executeQuery(strQuery);
-            while(DBM.DB_rs.next()){
+            while (DBM.DB_rs.next()) {
+                adminTextArea.setText(null);
                 strOutput += DBM.DB_rs.getString("user_id") + "\t";
                 strOutput += DBM.DB_rs.getString("name") + "\t";
                 strOutput += DBM.DB_rs.getString("phone_number") + "\t   ";
@@ -1815,31 +1861,53 @@ public class MainFrame extends javax.swing.JFrame {
                 txtNum.setText(DBM.DB_rs.getString("phone_number"));
                 adminPayField.setText(DBM.DB_rs.getString("pay"));
             }
-
             DBM.DB_rs.close();
             DBM.dbClose();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("SQLException : " + e.getMessage());
         }
-    }//GEN-LAST:event_btnSelectActionPerformed
 
+    }//GEN-LAST:event_btnSelectActionPerformed
+    //------------------------------------------------------------------------------
+    
+    //어드민 유저 삭제 버튼
     private void adminDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteBtnActionPerformed
-        // TODO add your handling code here:
-        strSQL = "Delete FROM User ";
-        strSQL += "WHERE user_id = '" + txtID.getText() + "' ";
-        try{
+       try {
+            strSQL = "DELETE FROM UserRole WHERE user_id = '" + txtID.getText() + "' ";
             DBM.dbOpen();
             DBM.DB_stmt.executeUpdate(strSQL);
+            DBM.dbClose();
+
+            // Delete data from WorkHour table
+            strSQL = "DELETE FROM WorkHour WHERE user_id = '" + txtID.getText() + "' ";
+            DBM.dbOpen();
+            DBM.DB_stmt.executeUpdate(strSQL);
+            DBM.dbClose();
+
+            // Now delete the user from the User table
+            strSQL = "DELETE FROM User WHERE user_id = '" + txtID.getText() + "' ";
+            DBM.dbOpen();
+            DBM.DB_stmt.executeUpdate(strSQL);
+
+            // Refresh the user data after deletion
             strSQL = "SELECT user_id, name, phone_number, birth_date, pay FROM USER";
             getUserData(strSQL);
             DBM.dbClose();
-        }catch(Exception e){
-            System.out.println("SQLException : " + e.getMessage());
-        }
-    }//GEN-LAST:event_adminDeleteBtnActionPerformed
 
+            // 성공 알림
+            JOptionPane.showMessageDialog(this, "삭제가 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e.getMessage());
+            // 실패 알림
+            JOptionPane.showMessageDialog(this, "삭제에 실패하였습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_adminDeleteBtnActionPerformed
+    //------------------------------------------------------------------------------
+    
+    //어드민 유저 정보 수정 버튼
     private void adminUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUpdateBtnActionPerformed
-        // TODO add your handling code here:
         strSQL = "Update User Set ";
         strSQL += "user_id = '" + txtID.getText() + "', ";
         strSQL += "name = '" + txtName.getText() + "', ";
@@ -1857,13 +1925,99 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }//GEN-LAST:event_adminUpdateBtnActionPerformed
-
+    //------------------------------------------------------------------------------
+    
+    //어드민 인수인창 띄우는 버튼
     private void adminHandOverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminHandOverBtnActionPerformed
         handOverFrame.setLocation(500, 100);
         handOverFrame.pack();
         handOverFrame.setVisible(true);
         updateHandOverTextArea();
     }//GEN-LAST:event_adminHandOverBtnActionPerformed
+    //------------------------------------------------------------------------------
+    
+    //어드민 유저 전체 정보 띄우는 버튼 
+    private void selectAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAllBtnActionPerformed
+        adminTextArea.setText(null); // 기존 텍스트 초기화
+
+        String strQuery = "SELECT user_id, name, phone_number, birth_date, pay FROM User";
+        String strOutput = "ID\t이름\t전화번호\t   생년월일\t   시급\n";
+
+        try {
+            DBM.dbOpen();
+            DBM.DB_rs = DBM.DB_stmt.executeQuery(strQuery);
+            while (DBM.DB_rs.next()) {
+                strOutput += DBM.DB_rs.getString("user_id") + "\t";
+                strOutput += DBM.DB_rs.getString("name") + "\t";
+                strOutput += DBM.DB_rs.getString("phone_number") + "\t   ";
+                strOutput += DBM.DB_rs.getString("birth_date") + "\t   ";
+                strOutput += DBM.DB_rs.getString("pay") + "\n";
+            }
+            // 모든 사용자 정보를 추가
+            adminTextArea.setText(strOutput);
+
+            DBM.DB_rs.close();
+            DBM.dbClose();
+        } catch (Exception e) {
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }//GEN-LAST:event_selectAllBtnActionPerformed
+
+    private void selectNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selectNameFieldKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+           String enteredName = selectNameField.getText();
+
+           if (enteredName != null && !enteredName.isEmpty()) {
+               // 1. User 및 UserRole 테이블에서 입력된 이름을 가진 사용자의 user_id와 role을 찾기
+               String findUserQuery = "SELECT User.user_id, UserRole.role FROM User INNER JOIN UserRole ON User.user_id = UserRole.user_id WHERE User.name = '" + enteredName + "'";
+               try {
+                   DBM.dbOpen();
+                   DBM.DB_rs = DBM.DB_stmt.executeQuery(findUserQuery);
+
+                   if (DBM.DB_rs.next()) {
+                       String userId = DBM.DB_rs.getString("user_id");
+                       String userRole = DBM.DB_rs.getString("role");
+                       String displayName = userRole.equals("ADMIN") ? "사장" : enteredName; // UserRole이 ADMIN이면 "사장", 그렇지 않으면 이름 사용
+
+                       // 2. handOver 테이블에서 해당 유저의 값을 가져오기
+                       String handOverQuery = "SELECT input_time, handover_notes FROM HandOver WHERE user_id = '" + userId + "'";
+                       handOverTextArea.setText(null); // 텍스트 초기화
+
+                       DBM.DB_rs = DBM.DB_stmt.executeQuery(handOverQuery);
+                       if (DBM.DB_rs.next()) {
+                           do {
+                               String inputTime = DBM.DB_rs.getString("input_time");
+                               String handoverNotes = DBM.DB_rs.getString("handover_notes");
+
+                               // 가져온 값을 handOverTextArea에 추가
+                               handOverTextArea.append("사용자 이름: " + displayName + "\n");
+                               handOverTextArea.append("입력시간: " + inputTime + "\n");
+                               handOverTextArea.append("인수인계 내용: " + handoverNotes + "\n\n");
+                           } while (DBM.DB_rs.next());
+                       } else {
+                           // 해당 사용자의 HandOver 데이터가 없는 경우에 대한 처리
+                           JOptionPane.showMessageDialog(this, "해당 사용자의 HandOver 데이터가 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+                       }
+                   } else {
+                       // 사용자를 찾을 수 없는 경우에 대한 처리
+                       JOptionPane.showMessageDialog(this, "해당하는 사용자를 찾을 수 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+                   }
+
+                   DBM.DB_rs.close();
+                   DBM.dbClose();
+               } catch (Exception e) {
+                   System.out.println("SQLException : " + e.getMessage());
+               }
+           } else {
+               // 이름이 비어있는 경우에 대한 처리
+               JOptionPane.showMessageDialog(this, "이름을 입력해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
+           }
+       }
+    }//GEN-LAST:event_selectNameFieldKeyTyped
+
+    private void handOVerSelectAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handOVerSelectAllBtnActionPerformed
+        updateHandOverTextArea();
+    }//GEN-LAST:event_handOVerSelectAllBtnActionPerformed
     //------------------------------------------------------------------------------
     
 
@@ -1939,23 +2093,21 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton duplicateBtn;
     private javax.swing.JLabel duplicateLabel;
     private javax.swing.JButton endBtn;
+    private javax.swing.JButton handOVerSelectAllBtn;
     private javax.swing.JButton handOverBtn;
     private javax.swing.JFrame handOverFrame;
     private javax.swing.JTextField handOverInputField;
     private javax.swing.JTextArea handOverTextArea;
     private javax.swing.JTextField id;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -1981,7 +2133,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImg;
     private javax.swing.JButton loginBtn;
     private javax.swing.JButton logoutBtn;
@@ -1996,6 +2147,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton register;
     private javax.swing.JButton registerBtn;
     private javax.swing.JFrame registerFrame;
+    private javax.swing.JButton selectAllBtn;
+    private javax.swing.JTextField selectNameField;
     private javax.swing.JButton startBtn;
     private javax.swing.JLabel taxInclude;
     private javax.swing.JLabel totalPay;
@@ -2008,7 +2161,5 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JFrame userInfo;
     private javax.swing.JRadioButton userRadioButton;
     private javax.swing.JTextArea userTextArea;
-    private javax.swing.JLabel welcomeLabel1;
-    private javax.swing.JLabel welcomeLabel2;
     // End of variables declaration//GEN-END:variables
 }
