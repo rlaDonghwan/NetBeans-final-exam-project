@@ -18,10 +18,10 @@ public class DB_MAN {
     String user = "root";
     String password = "password";
 
-    Connection DB_con;
+    Connection DB_con; //연결
     Statement DB_stmt;
     ResultSet DB_rs;
-    PreparedStatement pstmt;
+    PreparedStatement pstmt; 
     public void dbOpen() throws IOException {
         try {
             Class.forName(strDriver);

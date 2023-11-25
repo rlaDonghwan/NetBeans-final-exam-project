@@ -1,5 +1,6 @@
 
 import captcha.TextToGraphics;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -17,6 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -44,15 +49,15 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         try {
             String strData = null;
-            DBM.dbOpen();
-            getUserData(strASQL);
-            DBM.dbClose();
+            DBM.dbOpen(); //데이터베이스 열고
+            getUserData(strASQL); // userData가져오고
+            DBM.dbClose(); // 데이터베이스 닫고
         } catch(Exception e){
             System.out.println("SQLException : " + e.getMessage());
         }
         
-        lblImg.setText("");
-        reset();
+        lblImg.setText(""); //이미지 초기화
+        reset();  //이미지 세팅
     }
     //------------------------------------------------------------------------------
     
@@ -105,15 +110,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         auth = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
-        handOverFrame = new javax.swing.JFrame();
-        javax.swing.JLabel handOverLabel = new javax.swing.JLabel();
-        handOverInputField = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        selectNameField = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        handOverTextArea = new javax.swing.JTextArea();
-        handOVerSelectAllBtn = new javax.swing.JButton();
         adminFrame = new javax.swing.JFrame();
         jPanel11 = new javax.swing.JPanel();
         adminLogoutBtn = new javax.swing.JButton();
@@ -138,6 +134,15 @@ public class MainFrame extends javax.swing.JFrame {
         adminTextArea = new javax.swing.JTextArea();
         jPanel13 = new javax.swing.JPanel();
         adminHandOverBtn = new javax.swing.JButton();
+        handOverFrame = new javax.swing.JFrame();
+        javax.swing.JLabel handOverLabel1 = new javax.swing.JLabel();
+        handOverInputField = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        selectNameField = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        handOVerSelectAllBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        handOverTextPane = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -536,81 +541,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        handOverLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        handOverLabel.setText("인수인계");
-        handOverLabel.setToolTipText("");
-
-        handOverInputField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                handOverInputFieldKeyTyped(evt);
-            }
-        });
-
-        jLabel20.setText("입력: ");
-
-        selectNameField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                selectNameFieldKeyTyped(evt);
-            }
-        });
-
-        jLabel14.setText("유저 이름만 입력하세요");
-
-        handOverTextArea.setColumns(20);
-        handOverTextArea.setRows(5);
-        jScrollPane3.setViewportView(handOverTextArea);
-
-        handOVerSelectAllBtn.setText("전체보기");
-        handOVerSelectAllBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                handOVerSelectAllBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout handOverFrameLayout = new javax.swing.GroupLayout(handOverFrame.getContentPane());
-        handOverFrame.getContentPane().setLayout(handOverFrameLayout);
-        handOverFrameLayout.setHorizontalGroup(
-            handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(handOverFrameLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3)
-                    .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(handOverFrameLayout.createSequentialGroup()
-                            .addComponent(jLabel20)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6))
-                        .addGroup(handOverFrameLayout.createSequentialGroup()
-                            .addComponent(handOverLabel)
-                            .addGap(160, 160, 160)
-                            .addComponent(handOVerSelectAllBtn))
-                        .addGroup(handOverFrameLayout.createSequentialGroup()
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        handOverFrameLayout.setVerticalGroup(
-            handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(handOverFrameLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(handOverLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handOVerSelectAllBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addGap(28, 28, 28))
-        );
-
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         adminLogoutBtn.setText("로그아웃");
@@ -843,6 +773,86 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        handOverLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        handOverLabel1.setText("인수인계");
+        handOverLabel1.setToolTipText("");
+
+        handOverInputField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handOverInputFieldActionPerformed(evt);
+            }
+        });
+        handOverInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                handOverInputFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel22.setText("입력: ");
+
+        selectNameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                selectNameFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel16.setText("유저 이름만 입력하세요");
+
+        handOVerSelectAllBtn.setText("전체보기");
+        handOVerSelectAllBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handOVerSelectAllBtnActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(handOverTextPane);
+
+        javax.swing.GroupLayout handOverFrameLayout = new javax.swing.GroupLayout(handOverFrame.getContentPane());
+        handOverFrame.getContentPane().setLayout(handOverFrameLayout);
+        handOverFrameLayout.setHorizontalGroup(
+            handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(handOverFrameLayout.createSequentialGroup()
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(handOverFrameLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, handOverFrameLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(handOverFrameLayout.createSequentialGroup()
+                                .addComponent(handOverLabel1)
+                                .addGap(154, 154, 154)
+                                .addComponent(handOVerSelectAllBtn))
+                            .addGroup(handOverFrameLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(handOverFrameLayout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        handOverFrameLayout.setVerticalGroup(
+            handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(handOverFrameLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(handOverLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(handOVerSelectAllBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(handOverFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(handOverInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(28, 28, 28))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("로그인");
@@ -852,6 +862,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("비밀번호");
 
         loginBtn.setText("로그인");
+        loginBtn.setEnabled(false);
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -974,8 +985,7 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }
-    //------------------------------------------------------------------------------
-
+    //------------------------------------------------------------------------------X
 
     //데이터베이스에서 값을 가져와서 jTextArea1뿌려주는 메소드
     public final void getDBData(String strQuery) {
@@ -1043,12 +1053,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
-
-    //------------------------------------------------------------------------------
-    
-    
-    //------------------------------------------------------------------------------
-    
+    //------------------------------------------------------------------------------X
+  
+    //시급 값을 가져와서 userInfo에 보여주는 메서드
     public final int getPayByUserId(Long userId) {
         int pay = 0;
         String query = "SELECT pay FROM User WHERE user_id = ?";
@@ -1083,20 +1090,17 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println(pay);
         return pay;
     }
-//    //로그인을 성공하면 성공했다고 라벨에 사용자에 이름을 보여주는 메소드 로그인 로그아웃 메소드에서 사용됨
+    //------------------------------------------------------------------------------X
+    
+    //출퇴근 화면에 사용자에 이름을 보여주는 메소드
     private void updateWelcomeLabel(Long userId) {
         String userName = getUserNameById(userId);
 
         if (userName != null) {
-//            welcomeLabel1.setText(userName + " 님, 환영합니다!");
-//            welcomeLabel2.setText(userName + " 님, 환영합니다!");
             nameField.setText(userName);
-        } else {
-//            welcomeLabel1.setText("로그아웃 되었습니다.");
-//            welcomeLabel2.setText("로그아웃 되었습니다.");
         }
     }
-
+    //------------------------------------------------------------------------------X
     
     //userId값으로 사용자에 이름을 찾아오는 메소드 라벨을 업데이트 할때 사용됨
     private String getUserNameById(Long userId) {
@@ -1121,7 +1125,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return userName;
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //회원가입 할 때 사용되고 전화번호 값으로 userId값을 찾을 때 사용됨
     private Long getUserIdByPhoneNumber(String phoneNumber) {
@@ -1141,10 +1145,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         return null; // 사용자를 찾지 못한 경우 null 반환
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     
-     // Authentication 테이블에서 비밀번호 가져오는 메서드
+    // Authentication 테이블에서 비밀번호 가져오는 메서드
     private String getStoredAdminPassword() {
        String storedPassword = "";
 
@@ -1166,8 +1170,7 @@ public class MainFrame extends javax.swing.JFrame {
        // 가져온 비밀번호를 해싱
        return hashPassword(storedPassword);
     }
-    //------------------------------------------------------------------------------ 
-   
+    //------------------------------------------------------------------------------ X
     
     // UserRole 테이블에 권한 추가하는 쿼리문을 가진 메소드
     private void addRoleToUserRoleTable(Long userId, String role) {
@@ -1182,8 +1185,7 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }
-    //------------------------------------------------------------------------------
-    
+    //------------------------------------------------------------------------------X
     
     //출근 시간을 가져와서 퇴근버튼에 뿌려주는 메소드
     private LocalDateTime getStartTime(Long userId) {
@@ -1211,7 +1213,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return startTime;
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //전화번호에 정보를 가져와서 회원가입을 할때 중복이 되는지 안되는지 확인할때 쓰임
     private boolean isPhoneNumberExists(String phoneNumber) {
@@ -1232,7 +1234,7 @@ public class MainFrame extends javax.swing.JFrame {
             return false; // 에러 발생 시 일단 false 반환
         }
     }
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------X
     
     //패스워드를 해싱하는 메소드 회원가입 로그인 어드민인증 과정에서 해싱해줌
     private String hashPassword(String password) {
@@ -1252,7 +1254,7 @@ public class MainFrame extends javax.swing.JFrame {
             return null;
         }
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     
     //회원가입 버튼을 누르면 jFrame1(회원가입을 하는 프레임)을 띄워줌
@@ -1262,7 +1264,7 @@ public class MainFrame extends javax.swing.JFrame {
         registerFrame.setVisible(true);
         
     }//GEN-LAST:event_registerBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //회원가입 버튼 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
@@ -1327,7 +1329,7 @@ public class MainFrame extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(this, "회원가입 실패. 다시 시도하세요.");
            }
     }//GEN-LAST:event_registerActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
 
     //로그인 버튼
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
@@ -1357,23 +1359,22 @@ public class MainFrame extends javax.swing.JFrame {
                 loggedInUserId = userId;
 
                 // 여기서 성공한 후의 동작 추가
-                if ("USER".equals(userRole)) {
+                if ("USER".equals(userRole)) { //userRole이 USER일 경우
                     id.setText(null);
                     Pwd.setText(null);
-                    userInfo.setLocation(400,0 );
+                    userInfo.setLocation(400,0 ); //userInfo 프레임을 띄움
                     userInfo.pack();
                     userInfo.setVisible(true);
-                    updateWelcomeLabel(loggedInUserId);
+                    updateWelcomeLabel(loggedInUserId); //userInfo 프레임에 이름에 사용자에 이름을 보여줌
+                    
                     int payInt = getPayByUserId(loggedInUserId);
                     payField.setText(String.valueOf(payInt));
-
+                    getDBData(strSQL); 
                     
-                    getDBData(strSQL);                                                                      
-                } else if ("ADMIN".equals(userRole)) {
-                    // ADMIN일 경우 adminFrame 띄움
+                } else if ("ADMIN".equals(userRole)) {  //userRole이 ADMIN일 경우 
                     id.setText(null);
                     Pwd.setText(null);
-                    adminFrame.setLocation(400, 300);
+                    adminFrame.setLocation(400, 300); // adminFrame을 띄움
                     adminFrame.pack();
                     adminFrame.setVisible(true);
                 }
@@ -1388,7 +1389,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "로그인 실패. 다시 시도하세요.");
         }
     }//GEN-LAST:event_loginBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
 
     //중복 확인 메서드
     private void duplicateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicateBtnActionPerformed
@@ -1403,7 +1404,7 @@ public class MainFrame extends javax.swing.JFrame {
             register.setEnabled(true); // 사용 가능한 전화번호이므로 등록 버튼 활성화
         }
     }//GEN-LAST:event_duplicateBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
 
     //로그아웃 버튼
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -1414,7 +1415,7 @@ public class MainFrame extends javax.swing.JFrame {
         // 로그아웃 완료 얼럿 창 띄우기
         JOptionPane.showMessageDialog(this, "로그아웃 완료!");
     }//GEN-LAST:event_logoutBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드빈 인증 버튼
     private void adminAuthBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAuthBtnActionPerformed
@@ -1422,6 +1423,7 @@ public class MainFrame extends javax.swing.JFrame {
             adminAuthDialog.pack();
             adminAuthDialog.setVisible(true);
     }//GEN-LAST:event_adminAuthBtnActionPerformed
+    //------------------------------------------------------------------------------X
     
     //관리자 인증 키 다이얼로그 화면에 있는 인증 버튼
     private void authActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authActionPerformed
@@ -1447,7 +1449,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "인증 실패. 비밀번호를 확인하세요.");
         }
     }//GEN-LAST:event_authActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //출근 시간 버튼
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
@@ -1495,7 +1497,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(userInfo, "로그인 후에 출근 기록이 가능합니다.");
         }
     }//GEN-LAST:event_startBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //퇴근 시간 버튼
     private void endBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endBtnActionPerformed
@@ -1567,7 +1569,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(userInfo, "로그인 후에 퇴근 기록이 가능합니다.");
         }
     }//GEN-LAST:event_endBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
         
     //누적 출근 시간 구하는 메서드
     public long getTotalWorkDurationForUser(long userId) {
@@ -1609,9 +1611,8 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("쿼리 실행 전 total_work_duration: " + totalWorkDuration);
         return totalWorkDuration;
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
 
-    
     //인수인계 버튼
     private void handOverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handOverBtnActionPerformed
         handOverFrame.setLocation(500, 100);
@@ -1619,9 +1620,9 @@ public class MainFrame extends javax.swing.JFrame {
         handOverFrame.setVisible(true);
         updateHandOverTextArea();
     }//GEN-LAST:event_handOverBtnActionPerformed
-    //------------------------------------------------------------------------------    
+    //------------------------------------------------------------------------------X
     
-    //캡챠 리셋하는 메소드
+    //캡챠 리셋 및 첫 세팅 메서드
     public void reset(){
         try {
             currentCaptcha = TextToGraphics.generateImage();
@@ -1631,14 +1632,13 @@ public class MainFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //캡챠 새로고침 버튼
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        // TODO add your handling code here:
         reset();
     }//GEN-LAST:event_refreshBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
 
     //캡챠 인증버튼
     private void authBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authBtnActionPerformed
@@ -1650,7 +1650,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "인증실패");
         }
     }//GEN-LAST:event_authBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //콤보박스 날짜를 클릭하면 해당 달에 값이 출력 됌
     private void monthComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthComboBoxActionPerformed
@@ -1726,50 +1726,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_monthComboBoxActionPerformed
-    //------------------------------------------------------------------------------
-    
-    //인수인계 입력 필드 입력 메서드
-    private void handOverInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handOverInputFieldKeyTyped
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            if (loggedInUserId != null) {
-                try {
-                    DBM.dbOpen();
-                    LocalDateTime currentTime = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    String formattedTime = currentTime.format(formatter);
-                    String note = handOverInputField.getText();
-                    String query = "INSERT INTO HandOver (user_id, input_time, handover_notes) VALUES (?, ?, ?)";
-
-                    DBM.pstmt = DBM.DB_con.prepareStatement(query);
-                    DBM.pstmt.setLong(1, loggedInUserId);
-                    DBM.pstmt.setString(2, formattedTime);
-                    DBM.pstmt.setString(3, note);
-                    DBM.pstmt.executeUpdate();
-
-                    updateHandOverTextArea();
-                    handOverInputField.setText("");
-
-                    } catch (Exception e) {
-                        // 데이터베이스 작업 중 에러 발생 시
-                        System.out.println("SQLException : " + e.getMessage());
-                    } finally {
-                        try {
-                            // 데이터베이스 연결 닫기
-                            DBM.dbClose();
-                        } catch (Exception ex) {
-                            System.out.println("Exception during closing resources: " + ex.getMessage());
-                        }
-                    }
-                } else {
-                    // 사용자가 로그인하지 않은 경우
-                    JOptionPane.showMessageDialog(this, "로그인 후에 핸드오버 기록이 가능합니다.");
-                }          
-        }
-    }//GEN-LAST:event_handOverInputFieldKeyTyped
-    //------------------------------------------------------------------------------
-    
-    //인수 인수인계 창 값 업데이하는 메서드
+    //------------------------------------------------------------------------------X
+   
+    //인수인계 프레임에 값을 업데이트하는 메서드
     private void updateHandOverTextArea() {
+        StyledDocument doc = handOverTextPane.getStyledDocument();
+        Style defaultStyle = doc.getStyle(StyleContext.DEFAULT_STYLE);
+        
         try {
             // 데이터베이스 연결 열기
             DBM.dbOpen();
@@ -1779,32 +1742,30 @@ public class MainFrame extends javax.swing.JFrame {
                            "FROM HandOver ho " +
                            "JOIN User u ON ho.user_id = u.user_id " +
                            "JOIN UserRole ur ON u.user_id = ur.user_id " +
-                           "ORDER BY ho.input_time";  // 최신 핸드오버가 먼저 나오도록 정렬
+                           "ORDER BY ho.input_time";  // 최신 인수인계 먼저 나오도록 정렬
 
             // PreparedStatement 사용
             DBM.pstmt = DBM.DB_con.prepareStatement(query);
             DBM.DB_rs = DBM.pstmt.executeQuery();
 
             // 결과를 TextArea에 출력
-            handOverTextArea.setText("");
+            handOverTextPane.setText("");
             while (DBM.DB_rs.next()) {
                 String name = DBM.DB_rs.getString("name");
                 String role = DBM.DB_rs.getString("role");
                 String inputTime = DBM.DB_rs.getString("input_time");
                 String handoverNotes = DBM.DB_rs.getString("handover_notes");
                 
+                Style style = doc.addStyle("MyStyle", defaultStyle);
+                StyleConstants.setForeground(style, "ADMIN".equals(role) ? Color.RED : Color.BLACK); //userRole이 어드민일 경우 글씨 색을 빨간색 아닐 경우 검정색
+                 
                 // UserRole이 ADMIN이면 글씨 색을 빨간색으로 표시
                 if ("ADMIN".equals(role)) {
-                    String output = "***" + "사장" + " * " +inputTime + " * " + handoverNotes + " ***\n";
-                handOverTextArea.append(output);
+                    doc.insertString(doc.getLength(),"***" + "사장" + " * " +inputTime + " * " + handoverNotes + " ***\n",style);
                 }else{
-                    String output = "| " + name + " | " +inputTime + " | " + handoverNotes + " |\n";
-                    handOverTextArea.append(output);
+                    doc.insertString(doc.getLength(),"| " + name + " | " +inputTime + " | " + handoverNotes + " |\n",style);
 
-                }
-                
-                
-               
+                }             
             }
 
         } catch (Exception e) {
@@ -1816,7 +1777,6 @@ public class MainFrame extends javax.swing.JFrame {
                 if (DBM.DB_rs != null) {
                     DBM.DB_rs.close();
                 }
-
                 // 데이터베이스 연결 닫기
                 DBM.dbClose();
             } catch (Exception ex) {
@@ -1824,7 +1784,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드민 로그아웃 버튼
     private void adminLogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLogoutBtnActionPerformed
@@ -1835,7 +1795,7 @@ public class MainFrame extends javax.swing.JFrame {
         // 로그아웃 완료 얼럿 창 띄우기
         JOptionPane.showMessageDialog(this, "로그아웃 완료!");
     }//GEN-LAST:event_adminLogoutBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드빈 유저 검색 버튼
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
@@ -1868,7 +1828,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSelectActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드민 유저 삭제 버튼
     private void adminDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteBtnActionPerformed
@@ -1904,7 +1864,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_adminDeleteBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드민 유저 정보 수정 버튼
     private void adminUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUpdateBtnActionPerformed
@@ -1925,16 +1885,16 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }//GEN-LAST:event_adminUpdateBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
-    //어드민 인수인창 띄우는 버튼
+    //어드민 인수인계창 띄우는 버튼
     private void adminHandOverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminHandOverBtnActionPerformed
         handOverFrame.setLocation(500, 100);
         handOverFrame.pack();
         handOverFrame.setVisible(true);
         updateHandOverTextArea();
     }//GEN-LAST:event_adminHandOverBtnActionPerformed
-    //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------X
     
     //어드민 유저 전체 정보 띄우는 버튼 
     private void selectAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAllBtnActionPerformed
@@ -1962,76 +1922,118 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("SQLException : " + e.getMessage());
         }
     }//GEN-LAST:event_selectAllBtnActionPerformed
+    //------------------------------------------------------------------------------X
+    
+    private void handOverInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handOverInputFieldActionPerformed
+        
+    }//GEN-LAST:event_handOverInputFieldActionPerformed
 
+    //인수인계 창에서 엔터를 누르면 값이 입력되게 하는 메서드
+    private void handOverInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_handOverInputFieldKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (loggedInUserId != null) {
+                try {
+                    DBM.dbOpen();
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedTime = currentTime.format(formatter);
+                    String note = handOverInputField.getText();
+                    String query = "INSERT INTO HandOver (user_id, input_time, handover_notes) VALUES (?, ?, ?)";
+
+                    DBM.pstmt = DBM.DB_con.prepareStatement(query);
+                    DBM.pstmt.setLong(1, loggedInUserId);
+                    DBM.pstmt.setString(2, formattedTime);
+                    DBM.pstmt.setString(3, note);
+                    DBM.pstmt.executeUpdate();
+
+                    updateHandOverTextArea();
+                    handOverInputField.setText("");
+
+                } catch (Exception e) {
+                    // 데이터베이스 작업 중 에러 발생 시
+                    System.out.println("SQLException : " + e.getMessage());
+                } finally {
+                    try {
+                        // 데이터베이스 연결 닫기
+                        DBM.dbClose();
+                    } catch (Exception ex) {
+                        System.out.println("Exception during closing resources: " + ex.getMessage());
+                    }
+                }
+            } else {
+                // 사용자가 로그인하지 않은 경우
+                JOptionPane.showMessageDialog(this, "로그인 후에 핸드오버 기록이 가능합니다.");
+            }
+        }
+    }//GEN-LAST:event_handOverInputFieldKeyTyped
+    //------------------------------------------------------------------------------X
+    
+    //인수인계 창에서 사용자 이름을 통해 검색하는 메서드
     private void selectNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selectNameFieldKeyTyped
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-           String enteredName = selectNameField.getText();
+        String enteredName = selectNameField.getText();
 
-           if (enteredName != null && !enteredName.isEmpty()) {
-               // 1. User 및 UserRole 테이블에서 입력된 이름을 가진 사용자의 user_id와 role을 찾기
-               String findUserQuery = "SELECT User.user_id, UserRole.role FROM User INNER JOIN UserRole ON User.user_id = UserRole.user_id WHERE User.name = '" + enteredName + "'";
-               try {
-                   DBM.dbOpen();
-                   DBM.DB_rs = DBM.DB_stmt.executeQuery(findUserQuery);
+        if (enteredName != null && !enteredName.isEmpty()) {
+            // 1. User 및 UserRole 테이블에서 입력된 이름을 가진 사용자의 user_id와 role을 찾기
+            String findUserQuery = "SELECT User.user_id, UserRole.role FROM User INNER JOIN UserRole ON User.user_id = UserRole.user_id WHERE User.name = '" + enteredName + "'";
+            try {
+                DBM.dbOpen();
+                DBM.DB_rs = DBM.DB_stmt.executeQuery(findUserQuery);
 
-                   if (DBM.DB_rs.next()) {
-                       String userId = DBM.DB_rs.getString("user_id");
-                       String userRole = DBM.DB_rs.getString("role");
-                       String displayName = userRole.equals("ADMIN") ? "사장" : enteredName; // UserRole이 ADMIN이면 "사장", 그렇지 않으면 이름 사용
+                if (DBM.DB_rs.next()) {
+                    String userId = DBM.DB_rs.getString("user_id");
+                    String userRole = DBM.DB_rs.getString("role");
+                    String displayName = userRole.equals("ADMIN") ? "사장" : enteredName; // UserRole이 ADMIN이면 "사장", 그렇지 않으면 이름 사용
 
-                       // 2. handOver 테이블에서 해당 유저의 값을 가져오기
-                       String handOverQuery = "SELECT input_time, handover_notes FROM HandOver WHERE user_id = '" + userId + "'";
-                       handOverTextArea.setText(null); // 텍스트 초기화
+                    // 2. handOver 테이블에서 해당 유저의 값을 가져오기
+                    String handOverQuery = "SELECT input_time, handover_notes FROM HandOver WHERE user_id = '" + userId + "'";
+                    handOverTextPane.setText(""); // 텍스트 초기화
 
-                       DBM.DB_rs = DBM.DB_stmt.executeQuery(handOverQuery);
-                       if (DBM.DB_rs.next()) {
-                           do {
-                               String inputTime = DBM.DB_rs.getString("input_time");
-                               String handoverNotes = DBM.DB_rs.getString("handover_notes");
+                    StyledDocument doc = handOverTextPane.getStyledDocument();
+                    Style defaultStyle = doc.getStyle(StyleContext.DEFAULT_STYLE);
 
-                               // 가져온 값을 handOverTextArea에 추가
-                               handOverTextArea.append("사용자 이름: " + displayName + "\n");
-                               handOverTextArea.append("입력시간: " + inputTime + "\n");
-                               handOverTextArea.append("인수인계 내용: " + handoverNotes + "\n\n");
-                           } while (DBM.DB_rs.next());
-                       } else {
-                           // 해당 사용자의 HandOver 데이터가 없는 경우에 대한 처리
-                           JOptionPane.showMessageDialog(this, "해당 사용자의 HandOver 데이터가 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-                       }
-                   } else {
-                       // 사용자를 찾을 수 없는 경우에 대한 처리
-                       JOptionPane.showMessageDialog(this, "해당하는 사용자를 찾을 수 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-                   }
+                    DBM.DB_rs = DBM.DB_stmt.executeQuery(handOverQuery);
+                    if (DBM.DB_rs.next()) {
+                        do {
+                            String inputTime = DBM.DB_rs.getString("input_time");
+                            String handoverNotes = DBM.DB_rs.getString("handover_notes");
 
-                   DBM.DB_rs.close();
-                   DBM.dbClose();
-               } catch (Exception e) {
-                   System.out.println("SQLException : " + e.getMessage());
-               }
-           } else {
-               // 이름이 비어있는 경우에 대한 처리
-               JOptionPane.showMessageDialog(this, "이름을 입력해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
-           }
-       }
+                            // 가져온 값을 handOverTextPane에 추가
+                            Style style = doc.addStyle("MyStyle", defaultStyle);
+                            StyleConstants.setForeground(style, "ADMIN".equals(userRole) ? Color.RED : Color.BLACK);
+
+                            doc.insertString(doc.getLength(), "사용자 이름: " + displayName + "\n", style);
+                            doc.insertString(doc.getLength(), "입력시간: " + inputTime + "\n", style);
+                            doc.insertString(doc.getLength(), "인수인계 내용: " + handoverNotes + "\n\n", style);
+                        } while (DBM.DB_rs.next());
+                    } else {
+                        // 해당 사용자의 HandOver 데이터가 없는 경우에 대한 처리
+                        JOptionPane.showMessageDialog(handOverFrame, "해당 사용자의 HandOver 데이터가 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    // 사용자를 찾을 수 없는 경우에 대한 처리
+                    JOptionPane.showMessageDialog(handOverFrame, "해당하는 사용자를 찾을 수 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                DBM.DB_rs.close();
+                DBM.dbClose();
+            } catch (Exception e) {
+                System.out.println("SQLException : " + e.getMessage());
+            }
+        } else {
+            // 이름이 비어있는 경우에 대한 처리
+            JOptionPane.showMessageDialog(handOverFrame, "이름을 입력해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
+        }
+    
+        }
     }//GEN-LAST:event_selectNameFieldKeyTyped
-
+    //------------------------------------------------------------------------------X
+    
+    //인수인계 창에서 다시 입력된 내용을 보게하는 메서드
     private void handOVerSelectAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handOVerSelectAllBtnActionPerformed
         updateHandOverTextArea();
     }//GEN-LAST:event_handOVerSelectAllBtnActionPerformed
-    //------------------------------------------------------------------------------
-    
-
-
-
-
-
-
-
-
-
-    
-    
-    
+    //------------------------------------------------------------------------------X
     
     
     //-------------------------------------------------------------------------------------------------------------------
@@ -2097,17 +2099,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton handOverBtn;
     private javax.swing.JFrame handOverFrame;
     private javax.swing.JTextField handOverInputField;
-    private javax.swing.JTextArea handOverTextArea;
+    private javax.swing.JTextPane handOverTextPane;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -2131,7 +2133,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblImg;
     private javax.swing.JButton loginBtn;
