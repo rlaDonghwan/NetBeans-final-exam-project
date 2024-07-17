@@ -10,9 +10,9 @@
 - **업무 효율성 증대:** 정확한 시간 추적과 임금 계산을 통해 분쟁을 줄이고, 업무 효율성을 높일 수 있습니다.
 - **업무 연속성 보장:** 인수인계 문서를 통해 근무자 간의 원활한 정보 전달이 가능해져, 업무 연속성이 강화됩니다.
 
-
-![ERD](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/ERD.png?raw=true)
 <br> 데이터베이스 ERD
+![ERD](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/ERD.png?raw=true)
+
 ![회원가입 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%99%94%EB%A9%B4.png?raw=true)
 <br> 회원가입 화면
 ![관리자 인증 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EC%9D%B8%EC%A6%9D%20%ED%99%94%EB%A9%B4.png?raw=true)
