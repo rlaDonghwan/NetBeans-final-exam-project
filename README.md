@@ -55,22 +55,24 @@
      - `end_time`: 근무 종료 시간을 저장하는 컬럼입니다. (DATETIME)
 
 각 테이블은 특정 사용자 관리 시스템의 일부분으로, 사용자의 정보, 역할, 인수인계, 그리고 근무 시간 등을 관리하는 데 사용됩니다. Foreign Key(FK)를 통해 각 테이블 간의 관계를 설정하고 있습니다. 예를 들어, `user_role` 테이블은 `user_id`를 Foreign Key로 사용하여 `user` 테이블과 연결되어 있으며, `hand_over`와 `work_hour` 테이블 또한 `user_id`를 Foreign Key로 사용하여 `user` 테이블과 연결됩니다.
-
+<br>
 
 
 ![회원가입 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%99%94%EB%A9%B4.png?raw=true)
 <br> 회원가입 화면
-
+<br>
 ![관리자 인증 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EC%9D%B8%EC%A6%9D%20%ED%99%94%EB%A9%B4.png?raw=true)
 <br> 관리자 인증 화면
 - 관리자로 회원가입을 할 경우 필요합니다.
-
+<br>
 ![일반 사용자 로그인 후 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%BC%EB%B0%98%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%9B%84%20%ED%99%94%EB%A9%B4.png?raw=true)
 <br> 일반 사용자 로그인 화면
-- 출근, 퇴근 버튼을 클릭 시 아래 화면에 시작, 종료 시간이 출력되고 시작, 종료 시간을 바탕으로 근무 시간을 측정합니다.
+- 출근, 퇴근 버튼을 클릭 시 아래 화면에 시작, 종료 시간이 출력되고 시작, 종료 시간을 바탕으로 근무 시간을 측정합니다.<br>
+
 ![admin 로그인 후 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/admin%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%9B%84%20%ED%99%94%EB%A9%B4.png?raw=true)
 <br> admin 사용자 로그인 화면
-- 사용자의 ID를 검색하여 일반 사용자들의 내용을 수정하거나 삭제할 수 있습니다.
+- 사용자의 ID를 검색하여 일반 사용자들의 내용을 수정하거나 삭제할 수 있습니다. <br>
+
 ![인수인계 창](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%B8%EC%88%98%EC%9D%B8%EA%B3%84%20%EC%B0%BD.png?raw=true)
 <br> 인수인계 대화 창
-- 직원과 사장이 서로 대화할 수 있으며 가독성을 위해 admin 사용자가 입력하는 글자 색은 붉은색으로 처리했습니다.
+- 직원과 사장이 서로 대화할 수 있으며 가독성을 위해 admin 사용자가 입력하는 글자 색은 붉은색으로 처리했습니다. 
