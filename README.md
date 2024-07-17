@@ -62,7 +62,7 @@
 <br> 회원가입 화면
 <br>
 ![관리자 인증 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EC%9D%B8%EC%A6%9D%20%ED%99%94%EB%A9%B4.png?raw=true)
-<br> 관리자 인증 화면
+관리자 인증 화면
 - 관리자로 회원가입을 할 경우 필요합니다.
 <br>
 ![일반 사용자 로그인 후 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%BC%EB%B0%98%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%9B%84%20%ED%99%94%EB%A9%B4.png?raw=true)
