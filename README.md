@@ -11,9 +11,15 @@
 - **업무 연속성 보장:** 인수인계 문서를 통해 근무자 간의 원활한 정보 전달이 가능해져, 업무 연속성이 강화됩니다.
 
 
- ![ERD](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/ERD.png?raw=true)
+![ERD](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/ERD.png?raw=true)
+<br> 데이터베이스 ERD
 ![회원가입 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%99%94%EB%A9%B4.png?raw=true)
+<br> 회원가입 화면
 ![관리자 인증 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EC%9D%B8%EC%A6%9D%20%ED%99%94%EB%A9%B4.png?raw=true)
+<br> 관리자 인증 화면
 ![일반 사용자 로그인 후 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%BC%EB%B0%98%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%9B%84%20%ED%99%94%EB%A9%B4.png?raw=true)
+<br> 일반 사용자 로그인 화면
 ![admin 로그인 후 화면](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/admin%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%9B%84%20%ED%99%94%EB%A9%B4.png?raw=true)
+<br> admin 사용자 로그인 화면
 ![인수인계 창](https://github.com/rlaDonghwan/NetBeans-final-exam-project/blob/main/%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%B8%EC%88%98%EC%9D%B8%EA%B3%84%20%EC%B0%BD.png?raw=true)
+<br> 인수인계 대화 창
